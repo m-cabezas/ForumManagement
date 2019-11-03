@@ -1,13 +1,21 @@
 package controller;
 
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import static javafx.application.Application.launch;
+
 public class MainApp {
 
-	MessageListController messageListController;
-	PostListController postListController;
-	HeaderController headerController;
-	UserController userController;
-	TopicListController topicListController;
-	AdminController adminController;
+	private Stage primaryStage;
+	private AnchorPane mainPane;
+
+	private MessageListController messageListController;
+	private PostListController postListController;
+	private HeaderController headerController;
+	private UserController userController;
+	private TopicListController topicListController;
+	private AdminController adminController;
 
 	public void showMainView() {
 		// TODO - implement MainApp.showMainView
@@ -42,6 +50,10 @@ public class MainApp {
 	public void showUserPane() {
 		// TODO - implement MainApp.showUserPane
 		throw new UnsupportedOperationException();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 }

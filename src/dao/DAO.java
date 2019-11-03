@@ -1,14 +1,23 @@
 package dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
-public interface DAO {
+public interface DAO<Table> {
 
 	Connection connect = null;
 
-	void insert();
+	/**
+	 *
+	 * @param t
+	 */
+	void insert(Table t);
 
-	void delete();
+	/**
+	 *
+	 * @param t
+	 */
+	void delete(Table t);
 
 	/**
 	 * 
@@ -17,7 +26,7 @@ public interface DAO {
 	 */
 	void selectByColName(String colName, String value);
 
-	void getAll();
+	ArrayList<Table> getAll();
 
 	/**
 	 * 

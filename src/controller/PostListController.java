@@ -4,7 +4,10 @@ import dao.*;
 
 public class PostListController {
 
-	PostDAO postDAO;
+	private PostDAO postDAO;
 	private MainApp mainApp;
 
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
 }

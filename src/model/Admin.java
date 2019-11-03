@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Admin extends User {
 
-	private Collection<Topic> topics;
+	private ArrayList<Topic> topics;
 
 	public void createUser() {
 		// TODO - implement Admin.createUser

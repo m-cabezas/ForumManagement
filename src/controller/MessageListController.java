@@ -4,7 +4,10 @@ import dao.*;
 
 public class MessageListController {
 
-	MessageDAO messageDAO;
+	private MessageDAO messageDAO;
 	private MainApp mainApp;
 
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
 }

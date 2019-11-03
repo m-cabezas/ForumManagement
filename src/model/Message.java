@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Date;
+
 public class Message {
 
 	private User user;
