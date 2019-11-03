@@ -7,15 +7,20 @@ import java.util.ArrayList;
 
 public class MessageDAO implements DAO<Message> {
     @Override
-    public void insert(Message t) {
+    public void insert(Message message) {
 
     }
 
     @Override
-    public void delete(Message t) {
+    public void delete(Message message) {
 
     }
 
+    /**
+     *
+     * @param colName
+     * @param value
+     */
     @Override
     public void selectByColName(String colName, String value) {
 
