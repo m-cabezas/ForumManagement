@@ -11,13 +11,6 @@
 <AnchorPane maxHeight="100.0" prefHeight="100.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HeaderController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Forum Management" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-         </left>
          <bottom>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
@@ -28,10 +21,21 @@
          <right>
             <HBox>
                <children>
-                  <Text fx:id="currentUserTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER" />
+                  <Text fx:id="currentUserTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
                </children>
             </HBox>
          </right>
+         <left>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Forum Management" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>
