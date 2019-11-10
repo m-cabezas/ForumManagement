@@ -25,7 +25,7 @@ public class HeaderController {
 
 	@FXML
 	public void initialize(){
-		if(mainApp.getUser() == null){
+		if(mainApp == null || mainApp.getUser() == null){
 			currentUserTxt.setVisible(false);
 		}else{
 			currentUserTxt.setText(mainApp.getUser().getPseudo());
