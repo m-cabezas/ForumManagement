@@ -24,7 +24,7 @@ public interface DAO<Table> {
 	 * @param colName
 	 * @param value
 	 */
-	void selectByColName(String colName, String value);
+	ArrayList<Table> selectByColName(String colName, String value);
 
 	ArrayList<Table> getAll();
 
@@ -32,6 +32,6 @@ public interface DAO<Table> {
 	 * 
 	 * @param id
 	 */
-	void selectById(int id);
+	Table selectById(int id);
 
 }

@@ -11,13 +11,16 @@ public class Connect {
     private static String password;
     private static Connection conn;
 
-    public static Connection getInstance(){
-        try {
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static Connection getInstance() {
+        if (conn == null) {
+            try {
+                conn = DriverManager.getConnection(url, user, password);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return conn;
     }
+
 
 }

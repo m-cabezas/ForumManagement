@@ -1,36 +1,65 @@
 package model;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 public class Message {
 
-	private User user;
-	private int id;
-	private Date dateOfCreation;
-	private String content;
+    private int id;
+    private int userId;
+    private int postId;
+    private Date dateOfCreation;
+    private String content;
 
-	public int getId() {
-		return this.id;
-	}
+    public Message() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Message(int id, int userId, int postId, Date dateOfCreation, String content) {
+        this.id = id;
+        this.userId = userId;
+        this.postId = postId;
+        this.dateOfCreation = dateOfCreation;
+        this.content = content;
+    }
 
-	public Date getDateOfCreation() {
-		return this.dateOfCreation;
-	}
+    public int getUserId() {
+        return userId;
+    }
 
-	public void setDateOfCreation(Date dateOfCreation) {
-		this.dateOfCreation = dateOfCreation;
-	}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-	public String getContent() {
-		return this.content;
-	}
+    public int getPostId() {
+        return postId;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDateOfCreation() {
+        return this.dateOfCreation;
+    }
+
+    public void setDateOfCreation(Date dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 }
