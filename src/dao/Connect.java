@@ -6,12 +6,12 @@ import java.sql.SQLException;
 
 public class Connect {
 
-    private String url;
-    private String user;
-    private String password;
-    private Connection conn;
+    private static String url;
+    private static String user;
+    private static String password;
+    private static Connection conn;
 
-    public Connection getInstance(){
+    public static Connection getInstance(){
         try {
             conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
