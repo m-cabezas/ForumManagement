@@ -1,33 +1,97 @@
 package dao;
 
+import model.Message;
 import model.User;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UserDAO implements DAO<User> {
 
-    @Override
-    public void insert(User t) {
+    private String tableName = "User";
+    private Connection conn = Connect.getInstance();
 
+    @Override
+    public void insert(User user) {
+        String query = "INSERT INTO " + tableName + " (admin,age,biography,name,pseudo,surname) VALUES ('0','" + user.getAge() + "','" + user.getBiography() + "','" + user.getAge() + "','" + user.getPseudo() + "','" + user.getSurname() + "')";
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void delete(User t) {
-
+    public void delete(User user) {
+        String query = "DELETE FROM " + tableName + " WHERE id =" + user.getId();
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void selectByColName(String colName, String value) {
-
+    public ArrayList<User> selectByColName(String colName, String value) {
+        String query = "SELECT * FROM " + tableName + " WHERE " + colName + "=" + value;
+        return getUsers(query);
     }
 
     @Override
     public ArrayList<User> getAll() {
-        return null;
+        String query = "SELECT * FROM " + tableName;
+        return getUsers(query);
+    }
+
+    private ArrayList<User> getUsers(String query) {
+        Statement stmt = null;
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                boolean admin = resultSet.getBoolean(2);
+                int age = resultSet.getInt(3);
+                String biography = resultSet.getString(4);
+                String name = resultSet.getString(5);
+                String pseudo = resultSet.getString(6);
+                String surname = resultSet.getString(7);
+                User user = new User(id,admin,age,biography,name,pseudo,surname);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     @Override
-    public void selectById(int id) {
-
+    public User selectById(int id) {
+        String query = "SELECT * FROM " + tableName + " WHERE id=" + id;
+        Statement stmt = null;
+        User user = new User();
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            boolean admin = resultSet.getBoolean(2);
+            int age = resultSet.getInt(3);
+            String biography = resultSet.getString(4);
+            String name = resultSet.getString(5);
+            String pseudo = resultSet.getString(6);
+            String surname = resultSet.getString(7);
+            user = new User(id,admin,age,biography,name,pseudo,surname);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

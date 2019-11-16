@@ -10,8 +10,20 @@ public class User {
 	private String surname;
 	private int age;
 	private String biography;
-	private ArrayList<Message> messages;
 	private boolean admin;
+
+	public User() {
+	}
+
+	public User(int id, boolean admin, int age, String biography, String name, String pseudo, String surname) {
+		this.id = id;
+		this.pseudo = pseudo;
+		this.name = name;
+		this.surname = surname;
+		this.age = age;
+		this.biography = biography;
+		this.admin = admin;
+	}
 
 	public int getId() {
 		return this.id;
@@ -45,12 +57,28 @@ public class User {
 		this.surname = surname;
 	}
 
-	public ArrayList<Message> getMessages() {
-		return this.messages;
+	public int getAge() {
+		return age;
 	}
 
-	public void setMessages(ArrayList<Message> messages) {
-		this.messages = messages;
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }

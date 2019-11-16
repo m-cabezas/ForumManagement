@@ -4,28 +4,11 @@ import java.util.*;
 
 public class Topic {
 
-	private Admin admin;
-	private ArrayList<Post> posts;
 	private int id;
-	private int title;
+	private String topicName;
+	private String topicDescription;
 
 	public Topic() {
-	}
-
-	public Admin getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
-
-	public ArrayList<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(ArrayList<Post> posts) {
-		this.posts = posts;
 	}
 
 	public int getId() {
@@ -36,11 +19,19 @@ public class Topic {
 		this.id = id;
 	}
 
-	public int getTitle() {
-		return title;
+	public String getTopicName() {
+		return topicName;
 	}
 
-	public void setTitle(int title) {
-		this.title = title;
+	public void setTopicName(String topicName) {
+		this.topicName = topicName;
+	}
+
+	public String getTopicDescription() {
+		return topicDescription;
+	}
+
+	public void setTopicDescription(String topicDescription) {
+		this.topicDescription = topicDescription;
 	}
 }
