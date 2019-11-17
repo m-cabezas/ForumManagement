@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.UserController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Text fx:id="pseudoTxt" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" text="pseudo" BorderPane.alignment="TOP_LEFT">
+               <BorderPane.margin>
+                  <Insets left="10.0" top="10.0" />
+               </BorderPane.margin>
+            </Text>
+         </top>
+         <left>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="nameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="name">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="surnameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="surname" />
+                  <Text fx:id="ageTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="age" />
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <Text fx:id="biographyTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="biography" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="userIdTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="userId" />
+                  <Text fx:id="adminTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="admin">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
 </AnchorPane>
