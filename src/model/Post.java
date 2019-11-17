@@ -10,11 +10,12 @@ public class Post {
 	private String postName;
 	private Date dateOfCreation;
 	private Date lastUpdate;
+	private String description;
 
 	public Post() {
 	}
 
-	public Post(int id, int topicId, int userId, String postName, Date dateOfCreation, Date lastUpdate) {
+	public Post(int id, int topicId, int userId, String postName, Date dateOfCreation, Date lastUpdate, String description) {
 		this.id = id;
 		this.topicId = topicId;
 		this.userId = userId;
@@ -69,5 +70,13 @@ public class Post {
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

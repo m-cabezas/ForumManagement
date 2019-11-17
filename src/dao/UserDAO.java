@@ -96,7 +96,7 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public int countTableRow() {
-        String query = "SELECT COUNT(*) FROM " + tableName;
+        String query = "SELECT COUNT(*) FROM " + tableName + "";
         Statement stmt = null;
         int numberOfRows = 0;
         try {

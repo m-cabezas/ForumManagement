@@ -1,9 +1,6 @@
 package dao;
 
-import dao.DAO.*;
-import javafx.geometry.Pos;
 import model.Post;
-import model.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,7 +16,7 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void insert(Post post) {
-        String query = "INSERT INTO " + tableName + " (id_Topic,post_name) VALUES ('" + post.getTopicId()+ "','" + post.getPostName() + "')";
+        String query = "INSERT INTO " + tableName + " (id_Topic,post_name,post_description,date_of_creation,last_update,id_User) VALUES ('" + post.getTopicId()+ "','" + post.getPostName() + "','" + post.getDescription() + "','NOW()','NOW()','" + post.getUserId() + "')";
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
@@ -67,7 +64,7 @@ public class PostDAO implements DAO<Post> {
                 Date dateOfCreation = resultSet.getDate(5);
                 int userId = resultSet.getInt(6);
                 Date lastUpdate = resultSet.getDate(7);
-                Post post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate);
+                Post post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate,postDescription);
                 posts.add(post);
             }
         } catch (SQLException e) {
@@ -90,7 +87,7 @@ public class PostDAO implements DAO<Post> {
             Date dateOfCreation = resultSet.getDate(5);
             int userId = resultSet.getInt(6);
             Date lastUpdate = resultSet.getDate(7);
-            post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate);
+            post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate,postDescription);
         } catch (SQLException e) {
             e.printStackTrace();
         }
