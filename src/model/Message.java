@@ -1,20 +1,19 @@
 package model;
 
 
-import java.util.Date;
 
 public class Message {
 
     private int id;
     private int userId;
     private int postId;
-    private Date dateOfCreation;
+    private String dateOfCreation;
     private String content;
 
     public Message() {
     }
 
-    public Message(int id, int userId, int postId, Date dateOfCreation, String content) {
+    public Message(int id, int userId, int postId, String dateOfCreation, String content) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
@@ -46,11 +45,11 @@ public class Message {
         this.id = id;
     }
 
-    public Date getDateOfCreation() {
+    public String getDateOfCreation() {
         return this.dateOfCreation;
     }
 
-    public void setDateOfCreation(Date dateOfCreation) {
+    public void setDateOfCreation(String dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
     }
 

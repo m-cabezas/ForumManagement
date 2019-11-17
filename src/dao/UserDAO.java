@@ -18,7 +18,7 @@ public class UserDAO implements DAO<User> {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,6 +35,7 @@ public class UserDAO implements DAO<User> {
             statement.setString(5, user.getPseudo());
             statement.setString(6, user.getSurname());
 
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,7 +47,7 @@ public class UserDAO implements DAO<User> {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -37,19 +37,24 @@ public class HeaderController {
 		// TODO: Populate the userComboBox thanks to the userDao
 		ArrayList<User> users = userDAO.getAll();
 		for(User user : users){
-//			if(user.getId() != 1){
+			if(user.getId() != 1){
 				userComboBox.getItems().add(user.getId() + " - " + user.getPseudo());
-//			}
+			}
 
 		}
 	}
 
 	@FXML
-	public void pickUser(){
+	private void pickUser(){
 		String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-" , 2);
 		User currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
 		currentUserTxt.setText(currentUser.getPseudo());
 		currentUserTxt.setVisible(true);
 		mainApp.setUser(currentUser);
+	}
+
+	@FXML
+	private void showTopics(){
+		mainApp.showTopicListPane();
 	}
 }

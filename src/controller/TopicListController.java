@@ -30,26 +30,27 @@ public class TopicListController {
 
 	@FXML
 	public  void initialize(){
-		ArrayList<Topic> topics = topicDAO.getAll();
+		if(mainApp != null){
+			ArrayList<Topic> topics = topicDAO.getAll();
+			for(Topic topic: topics){
+				try{
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(MainApp.class.getResource("../view/TopicPane.fxml"));
+					AnchorPane messagePane = (AnchorPane) loader.load();
+					topicBox.getChildren().add(messagePane);
 
-		for(Topic topic: topics){
-			try{
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(MainApp.class.getResource("../view/MessagePane.fxml"));
-				AnchorPane messagePane = (AnchorPane) loader.load();
+					//Allowing Controller to access the view
+					TopicController topicController = loader.getController();
+					topicController.setMainApp(mainApp);
+					topicController.setTopic(topic);
+					topicController.initialize();
 
-				topicBox.getChildren().add(messagePane);
-
-				//Allowing Controller to access the view
-				TopicController topicController = loader.getController();
-				topicController.setMainApp(mainApp);
-				topicController.setTopic(topic);
-				topicController.initialize();
-
-			} catch (IOException e) {
-				e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
+
 	}
 
 

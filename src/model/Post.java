@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Date;
 
 public class Post {
 
@@ -8,20 +7,21 @@ public class Post {
 	private int topicId;
 	private int userId;
 	private String postName;
-	private Date dateOfCreation;
-	private Date lastUpdate;
+	private String dateOfCreation;
+	private String lastUpdate;
 	private String description;
 
 	public Post() {
 	}
 
-	public Post(int id, int topicId, int userId, String postName, Date dateOfCreation, Date lastUpdate, String description) {
+	public Post(int id, int topicId, int userId, String postName, String dateOfCreation, String lastUpdate, String description) {
 		this.id = id;
 		this.topicId = topicId;
 		this.userId = userId;
 		this.postName = postName;
 		this.dateOfCreation = dateOfCreation;
 		this.lastUpdate = lastUpdate;
+		this.description = description;
 	}
 
 	public int getTopicId() {
@@ -56,19 +56,19 @@ public class Post {
 		this.id = id;
 	}
 
-	public Date getDateOfCreation() {
+	public String getDateOfCreation() {
 		return dateOfCreation;
 	}
 
-	public void setDateOfCreation(Date dateOfCreation) {
+	public void setDateOfCreation(String dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
 
-	public Date getLastUpdate() {
+	public String getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(Date lastUpdate) {
+	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 

@@ -17,7 +17,7 @@ public class TopicDAO implements DAO<Topic> {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -30,6 +30,7 @@ public class TopicDAO implements DAO<Topic> {
             statement.setString(1, topic.getTopicName());
             statement.setString(2, topic.getTopicDescription());
 
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,7 +42,7 @@ public class TopicDAO implements DAO<Topic> {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

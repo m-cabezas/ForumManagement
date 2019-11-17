@@ -6,12 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="700.0" prefWidth="1279.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TopicListController">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <VBox fx:id="topicBox" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="topicBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
          </content>
       </ScrollPane>
    </children>

@@ -3,9 +3,7 @@ package dao;
 import model.Message;
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MessageDAO implements DAO<Message> {
 
@@ -14,11 +12,11 @@ public class MessageDAO implements DAO<Message> {
 
     @Override
     public void insert(Message message) {
-        String query = "INSERT INTO " + tableName + " (content,date_of_creation,id_Post,id_User) VALUES ('" + message.getContent() + "','Now()','" + message.getPostId() + "','" + message.getUserId() + "')";
+        String query = "INSERT INTO " + tableName + " (content,date_of_creation,id_Post,id_User) VALUES ('" + message.getContent() + "', date('now'),'" + message.getPostId() + "','" + message.getUserId() + "')";
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -29,10 +27,11 @@ public class MessageDAO implements DAO<Message> {
         try {
             PreparedStatement statement = conn.prepareStatement("UPDATE Message SET content = ?, date_of_creation = ?, id_Post = ?, id_User = ? WHERE id = "+message.getId());
             statement.setString(1,message.getContent());
-            statement.setDate(2, java.sql.Date.valueOf(message.getDateOfCreation().toInstant().atZone(ZoneId.of("ECT")).toLocalDate()));
+            statement.setDate(2, java.sql.Date.valueOf(message.getDateOfCreation()));
             statement.setInt(3,message.getPostId());
             statement.setInt(4, message.getUserId());
 
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +77,7 @@ public class MessageDAO implements DAO<Message> {
                 int id = resultSet.getInt("id");
                 int userId = resultSet.getInt("id_User");
                 int postId = resultSet.getInt("id_Post");
-                Date dateOfCreation = resultSet.getDate("date_of_creation");
+                String dateOfCreation = resultSet.getString("date_of_creation");
                 String content = resultSet.getString("content");
                 Message message = new Message(id,userId,postId,dateOfCreation,content);
                 messages.add(message);
@@ -99,7 +98,7 @@ public class MessageDAO implements DAO<Message> {
             ResultSet resultSet = stmt.executeQuery(query);
             int userId = resultSet.getInt("id_User");
             int postId = resultSet.getInt("id_Post");
-            Date dateOfCreation = resultSet.getDate("date_of_creation");
+            String dateOfCreation = resultSet.getString("date_of_creation");
             String content = resultSet.getString("content");
             message = new Message(id,userId,postId,dateOfCreation,content);
         } catch (SQLException e) {

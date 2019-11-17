@@ -5,7 +5,7 @@ import model.Post;
 import java.sql.*;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class PostDAO implements DAO<Post> {
 
@@ -14,11 +14,11 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void insert(Post post) {
-        String query = "INSERT INTO " + tableName + " (id_Topic,post_name,post_description,date_of_creation,last_update,id_User) VALUES ('" + post.getTopicId()+ "','" + post.getPostName() + "','" + post.getDescription() + "','NOW()','NOW()','" + post.getUserId() + "')";
+        String query = "INSERT INTO " + tableName + " (id_Topic,post_name,post_description,date_of_creation,last_update,id_User) VALUES ('" + post.getTopicId()+ "','" + post.getPostName() + "','" + post.getDescription() + "',date('now'), date('now'),'" + post.getUserId() + "')";
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,9 +31,9 @@ public class PostDAO implements DAO<Post> {
             statement.setInt(1, post.getTopicId());
             statement.setString(2, post.getPostName());
             statement.setString(3, post.getDescription());
-            statement.setDate(4, java.sql.Date.valueOf(post.getDateOfCreation().toInstant().atZone(ZoneId.of("ECT")).toLocalDate()));
-            statement.setDate(5, java.sql.Date.valueOf(post.getLastUpdate().toInstant().atZone(ZoneId.of("ECT")).toLocalDate()));
-
+            statement.setDate(4, java.sql.Date.valueOf(post.getDateOfCreation()));
+            statement.setDate(5, java.sql.Date.valueOf(post.getLastUpdate()));
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class PostDAO implements DAO<Post> {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,9 +74,9 @@ public class PostDAO implements DAO<Post> {
                 String postName = resultSet.getString("post_name");
                 int topicId = resultSet.getInt("id_Topic");
                 String postDescription = resultSet.getString("post_description");
-                Date dateOfCreation = resultSet.getDate("date_of_creation");
+                String dateOfCreation = resultSet.getString("date_of_creation");
                 int userId = resultSet.getInt("id_User");
-                Date lastUpdate = resultSet.getDate("last_update");
+                String lastUpdate = resultSet.getString("last_update");
                 Post post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate,postDescription);
                 posts.add(post);
             }
@@ -97,9 +97,9 @@ public class PostDAO implements DAO<Post> {
             String postName = resultSet.getString("post_name");
             int topicId = resultSet.getInt("id_Topic");
             String postDescription = resultSet.getString("post_description");
-            Date dateOfCreation = resultSet.getDate("date_of_creation");
+            String dateOfCreation = resultSet.getString("date_of_creation");
             int userId = resultSet.getInt("id_User");
-            Date lastUpdate = resultSet.getDate("last_update");
+            String lastUpdate = resultSet.getString("last_update");
             post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate,postDescription);
         } catch (SQLException e) {
             e.printStackTrace();

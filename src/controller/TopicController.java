@@ -42,14 +42,17 @@ public class TopicController {
     public void initialize(){
         if(topic != null){
             nameTxt.setText(topic.getTopicName());
-            nbMsgTxt.setText(String.valueOf(messageDAO.countMessageByTopic(topic.getId())));
-            nbPostTxt.setText(String.valueOf(postDAO.countPostByTopic(topic.getId())));
-            descTxt.setText(topic.getTopicDescription());
+            nbMsgTxt.setText("Number of Message: " + messageDAO.countMessageByTopic(topic.getId()));
+            nbPostTxt.setText("Number of Post: " + postDAO.countPostByTopic(topic.getId()));
+            descTxt.setText("Description: " + topic.getTopicDescription());
         }
     }
 
     @FXML
     private void showPostList(){
-        mainApp.showPostListPane(topic.getId());
+        if(mainApp != null){
+            mainApp.showPostListPane(topic.getId());
+        }
+
     }
 }

@@ -8,14 +8,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PostListController">
    <children>
-      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="1280.0">
+      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="710.0" prefWidth="1290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="postBox" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="postBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
                </content>
             </ScrollPane>
          </center>
@@ -37,7 +36,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="postBtn" mnemonicParsing="false" text="Post">
+                  <Button fx:id="postBtn" mnemonicParsing="false" onAction="#addPost" text="Post">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>

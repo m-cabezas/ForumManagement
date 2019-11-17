@@ -14,7 +14,7 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="msgBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
                </content>
             </ScrollPane>
          </center>
@@ -31,7 +31,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </TextArea>
-                  <Button fx:id="postBtn" mnemonicParsing="false" text="Post">
+                  <Button fx:id="postBtn" mnemonicParsing="false" onAction="#addMessage" text="Post">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>

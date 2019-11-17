@@ -115,6 +115,7 @@ public class MainApp extends Application {
 			//Allowing Controller to access the view
 			topicListController = loader.getController();
 			topicListController.setMainApp(this);
+			topicListController.initialize();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -141,7 +142,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showMessageListPane() {
+	public void showMessageListPane(int postId) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/MessageListPane.fxml"));
@@ -155,13 +156,15 @@ public class MainApp extends Application {
 			//Allowing Controller to access the view
 			messageListController = loader.getController();
 			messageListController.setMainApp(this);
+			messageListController.setPostId(postId);
+			messageListController.initialize();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void showUserPane() {
+	public void showUserPane(int userId) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/UserPane.fxml"));
@@ -174,8 +177,9 @@ public class MainApp extends Application {
 
 			//Allowing Controller to access the view
 			userController = loader.getController();
+			userController.setUserId(userId);
 			userController.setMainApp(this);
-
+			userController.initialize();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

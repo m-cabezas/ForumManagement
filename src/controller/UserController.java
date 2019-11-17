@@ -9,17 +9,24 @@ public class UserController {
 
 	@FXML
     private Text pseudoTxt;
+	@FXML
 	private Text nameTxt;
+	@FXML
 	private Text surnameTxt;
+	@FXML
 	private Text ageTxt;
+	@FXML
 	private Text biographyTxt;
+	@FXML
 	private Text userIdTxt;
+	@FXML
 	private Text adminTxt;
 
 	private UserDAO userDAO;
 	private MainApp mainApp;
 
 	private User user;
+	private int userId;
 
 	public UserController() {
 		userDAO = new UserDAO();
@@ -29,13 +36,16 @@ public class UserController {
 		this.mainApp = mainApp;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
+
+
 
 	@FXML
 	public void initialize(){
-		if(user != null){
+		if(userId != 0){
+			user = userDAO.selectById(userId);
 			pseudoTxt.setText(user.getPseudo());
 			nameTxt.setText(user.getName());
 			surnameTxt.setText(user.getSurname());
