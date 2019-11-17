@@ -16,7 +16,7 @@ public class MessageDAO implements DAO<Message> {
 
     @Override
     public void insert(Message message) {
-        String query = "INSERT INTO " + tableName + " (content,date_of_creation,id_Post,id_User) VALUES ('" + message.getContent() + "','" + message.getDateOfCreation() + "','" + message.getPostId() + "','" + message.getUserId() + "')";
+        String query = "INSERT INTO " + tableName + " (content,date_of_creation,id_Post,id_User) VALUES ('" + message.getContent() + "','Now()','" + message.getPostId() + "','" + message.getUserId() + "')";
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
