@@ -60,7 +60,7 @@ public class MainApp extends Application {
 		return user;
 	}
 
-	public void showPostListPane() {
+	public void showPostListPane(int topicId) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/PostListPane.fxml"));
@@ -74,6 +74,9 @@ public class MainApp extends Application {
 			//Allowing Controller to access the view
 			postListController = loader.getController();
 			postListController.setMainApp(this);
+			postListController.setTopic(topicId);
+			postListController.initialize();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

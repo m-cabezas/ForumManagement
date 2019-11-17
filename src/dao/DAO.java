@@ -17,6 +17,12 @@ public interface DAO<Table> {
 	 *
 	 * @param t
 	 */
+	void  update(Table t);
+
+	/**
+	 *
+	 * @param t
+	 */
 	void delete(Table t);
 
 	/**
@@ -26,6 +32,10 @@ public interface DAO<Table> {
 	 */
 	ArrayList<Table> selectByColName(String colName, String value);
 
+	/**
+	 * 
+	 * @return
+	 */
 	ArrayList<Table> getAll();
 
 	/**

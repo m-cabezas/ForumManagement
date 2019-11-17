@@ -4,6 +4,9 @@ import dao.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
+import model.User;
+
+import java.util.ArrayList;
 
 public class HeaderController {
 
@@ -32,13 +35,19 @@ public class HeaderController {
 			currentUserTxt.setVisible(true);
 		}
 		// TODO: Populate the userComboBox thanks to the userDao
+		ArrayList<User> users = userDAO.getAll();
+		for(User user : users){
+			if(user.getId() != 1){
+				userComboBox.getItems().add(user.getId() + " - " + user.getPseudo());
+			}
 
+		}
 	}
 
 	@FXML
 	public void pickUser(){
-
-		userComboBox.getSelectionModel().getSelectedItem();
-		// TODO: Set the mainApp user -> ex : mainApp.setUser(user)
+		String parts[] = userComboBox.getSelectionModel().getSelectedItem().split(" - ", 1);
+		User currentUser = userDAO.selectById(Integer.valueOf(parts[0]));
+		mainApp.setUser(currentUser);
 	}
 }

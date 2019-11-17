@@ -2,10 +2,8 @@ package dao;
 
 import model.Message;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,6 +22,21 @@ public class MessageDAO implements DAO<Message> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Message message){
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE Message SET content = ?, date_of_creation = ?, id_Post = ?, id_User = ? WHERE id = "+message.getId());
+            statement.setString(1,message.getContent());
+            statement.setDate(2,message.getDateOfCreation().toInstant().atZone(ZoneId.from("Paris")).toLocalDate());
+            statement.setInt(3,message.getPostId());
+            statement.setInt(4, message.getUserId());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
