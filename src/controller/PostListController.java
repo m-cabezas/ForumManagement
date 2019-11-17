@@ -3,6 +3,7 @@ package controller;
 import dao.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -25,6 +26,8 @@ public class PostListController {
 	private Text topicNameTxt;
 	@FXML
 	private Text topicDescriptionTxt;
+	@FXML
+	private Button postBtn;
 
 	private MainApp mainApp;
 	private Topic topic;
@@ -44,6 +47,12 @@ public class PostListController {
 
 	@FXML
 	public void initialize(){
+		enableUserRights(false);
+		if(mainApp != null){
+			if(mainApp.getUser() != null){
+				enableUserRights(true);
+			}
+		}
 
 		/* displaying post list */
 		if(topic != null){
@@ -85,6 +94,14 @@ public class PostListController {
 			post.setUserId(mainApp.getUser().getId());
 			postDAO.insert(post);
 			initialize();
+		}
+	}
+
+	public void enableUserRights(boolean bool){
+		if(bool){
+			postBtn.setDisable(false);
+		}else{
+			postBtn.setDisable(true);
 		}
 	}
 

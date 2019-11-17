@@ -51,7 +51,7 @@ public class PostController {
 
     @FXML
     private void showMessage(){
-        mainApp.showMessageListPane(post.getId());
+        mainApp.showMessageListPane(post);
     }
 
     @FXML

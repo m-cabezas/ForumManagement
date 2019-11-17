@@ -56,6 +56,12 @@ public class MainApp extends Application {
 
 	public void setUser(User user) {
 		this.user = user;
+		if(messageListController != null){
+			messageListController.enableUserRights(true);
+		}
+		if(postListController != null){
+			postListController.enableUserRights(true);
+		}
 	}
 
 	public User getUser() {

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import model.Message;
 import model.Post;
 
@@ -16,9 +17,15 @@ import java.util.ArrayList;
 public class MessageListController {
 
 	@FXML
+	private Button postBtn;
+	@FXML
 	private TextArea msgArea;
 	@FXML
 	private VBox msgBox;
+	@FXML
+	private Text postNameTxt;
+	@FXML
+	private Text postDescriptionTxt;
 
 	private MessageDAO messageDAO;
 	private MainApp mainApp;
@@ -38,8 +45,17 @@ public class MessageListController {
 
 	@FXML
 	public void initialize(){
+		enableUserRights(false);
+		if(mainApp != null){
+			if(mainApp.getUser() != null){
+				enableUserRights(true);
+			}
+		}
+
 		/* displaying message list */
 		if(post !=  null){
+			postNameTxt.setText(post.getPostName());
+			postDescriptionTxt.setText("Description: " + post.getDescription());
 			ArrayList<Message> messages = messageDAO.selectByColName("id_Post", String.valueOf(post.getId()));
 			for(Message message: messages){
 				try{
@@ -64,6 +80,7 @@ public class MessageListController {
 
 	@FXML
 	private void addMessage(){
+
 		if(!msgArea.getText().isBlank()){
 			Message message = new Message();
 			message.setContent(msgArea.getText());
@@ -71,6 +88,15 @@ public class MessageListController {
 			message.setPostId(post.getId());
 			messageDAO.insert(message);
 			initialize();
+		}
+	}
+
+
+	public void enableUserRights(boolean bool){
+		if(bool){
+			postBtn.setDisable(false);
+		}else{
+			postBtn.setDisable(true);
 		}
 	}
 }
