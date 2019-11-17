@@ -66,9 +66,9 @@ public class TopicDAO implements DAO<Topic> {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String topicName = resultSet.getString(2);
-                String topicDescription = resultSet.getString(3);
+                int id = resultSet.getInt("id");
+                String topicName = resultSet.getString("topic_name");
+                String topicDescription = resultSet.getString("topic_description");
                 Topic topic = new Topic(id,topicName,topicDescription);
                 topics.add(topic);
             }
@@ -86,8 +86,8 @@ public class TopicDAO implements DAO<Topic> {
         try {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
-            String topicName = resultSet.getString(2);
-            String topicDescription = resultSet.getString(3);
+            String topicName = resultSet.getString("topic_name");
+            String topicDescription = resultSet.getString("topic_description");
             topic = new Topic(id,topicName,topicDescription);
         } catch (SQLException e) {
             e.printStackTrace();

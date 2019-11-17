@@ -75,11 +75,11 @@ public class MessageDAO implements DAO<Message> {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                int userId = resultSet.getInt(2);
-                int postId = resultSet.getInt(3);
-                Date dateOfCreation = resultSet.getDate(4);
-                String content = resultSet.getString(5);
+                int id = resultSet.getInt("id");
+                int userId = resultSet.getInt("id_User");
+                int postId = resultSet.getInt("id_Post");
+                Date dateOfCreation = resultSet.getDate("date_of_creation");
+                String content = resultSet.getString("content");
                 Message message = new Message(id,userId,postId,dateOfCreation,content);
                 messages.add(message);
             }
@@ -97,10 +97,10 @@ public class MessageDAO implements DAO<Message> {
         try {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
-            int userId = resultSet.getInt(2);
-            int postId = resultSet.getInt(3);
-            Date dateOfCreation = resultSet.getDate(4);
-            String content = resultSet.getString(5);
+            int userId = resultSet.getInt("id_User");
+            int postId = resultSet.getInt("id_Post");
+            Date dateOfCreation = resultSet.getDate("date_of_creation");
+            String content = resultSet.getString("content");
             message = new Message(id,userId,postId,dateOfCreation,content);
         } catch (SQLException e) {
             e.printStackTrace();

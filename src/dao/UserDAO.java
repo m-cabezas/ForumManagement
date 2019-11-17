@@ -71,13 +71,13 @@ public class UserDAO implements DAO<User> {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                boolean admin = resultSet.getBoolean(6);
-                int age = resultSet.getInt(3);
-                String biography = resultSet.getString(4);
-                String name = resultSet.getString(5);
-                String pseudo = resultSet.getString(2);
-                String surname = resultSet.getString(7);
+                int id = resultSet.getInt("id");
+                boolean admin = resultSet.getBoolean("admin");
+                int age = resultSet.getInt("age");
+                String biography = resultSet.getString("biography");
+                String name = resultSet.getString("name");
+                String pseudo = resultSet.getString("pseudo");
+                String surname = resultSet.getString("surname");
                 User user = new User(id,admin,age,biography,name,pseudo,surname);
                 users.add(user);
             }
@@ -95,12 +95,12 @@ public class UserDAO implements DAO<User> {
         try {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
-            boolean admin = resultSet.getBoolean(2);
-            int age = resultSet.getInt(3);
-            String biography = resultSet.getString(4);
-            String name = resultSet.getString(5);
-            String pseudo = resultSet.getString(6);
-            String surname = resultSet.getString(7);
+            boolean admin = resultSet.getBoolean("admin");
+            int age = resultSet.getInt("age");
+            String biography = resultSet.getString("biography");
+            String name = resultSet.getString("name");
+            String pseudo = resultSet.getString("pseudo");
+            String surname = resultSet.getString("surname");
             user = new User(id,admin,age,biography,name,pseudo,surname);
         } catch (SQLException e) {
             e.printStackTrace();

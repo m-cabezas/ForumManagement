@@ -70,13 +70,13 @@ public class PostDAO implements DAO<Post> {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String postName = resultSet.getString(2);
-                int topicId = resultSet.getInt(3);
-                String postDescription = resultSet.getString(4);
-                Date dateOfCreation = resultSet.getDate(5);
-                int userId = resultSet.getInt(6);
-                Date lastUpdate = resultSet.getDate(7);
+                int id = resultSet.getInt("id");
+                String postName = resultSet.getString("post_name");
+                int topicId = resultSet.getInt("id_Topic");
+                String postDescription = resultSet.getString("post_description");
+                Date dateOfCreation = resultSet.getDate("date_of_creation");
+                int userId = resultSet.getInt("id_User");
+                Date lastUpdate = resultSet.getDate("last_update");
                 Post post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate,postDescription);
                 posts.add(post);
             }
@@ -94,12 +94,12 @@ public class PostDAO implements DAO<Post> {
         try {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
-            String postName = resultSet.getString(2);
-            int topicId = resultSet.getInt(3);
-            String postDescription = resultSet.getString(4);
-            Date dateOfCreation = resultSet.getDate(5);
-            int userId = resultSet.getInt(6);
-            Date lastUpdate = resultSet.getDate(7);
+            String postName = resultSet.getString("post_name");
+            int topicId = resultSet.getInt("id_Topic");
+            String postDescription = resultSet.getString("post_description");
+            Date dateOfCreation = resultSet.getDate("date_of_creation");
+            int userId = resultSet.getInt("id_User");
+            Date lastUpdate = resultSet.getDate("last_update");
             post = new Post(id,topicId,userId,postName,dateOfCreation,lastUpdate,postDescription);
         } catch (SQLException e) {
             e.printStackTrace();
