@@ -27,12 +27,13 @@ public class PostDAO implements DAO<Post> {
     @Override
     public void update(Post post) {
         try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE Post SET id_Topic = ?, post_name = ?, post_description = ?, date_of_creation = ?, last_update = ?,  WHERE id = "+ post.getId());
+            PreparedStatement statement = conn.prepareStatement("UPDATE Post SET id_Topic = ?, post_name = ?, post_description = ?, date_of_creation = ?, last_update = ?, id_User = ? WHERE id = "+ post.getId());
             statement.setInt(1, post.getTopicId());
             statement.setString(2, post.getPostName());
             statement.setString(3, post.getDescription());
             statement.setDate(4, java.sql.Date.valueOf(post.getDateOfCreation()));
             statement.setDate(5, java.sql.Date.valueOf(post.getLastUpdate()));
+            statement.setInt(6, post.getUserId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,4 +136,19 @@ public class PostDAO implements DAO<Post> {
         }
         return numberOfRows;
     }
+
+    /**
+     * Replace post's author by the Undefined User
+     * @param userId
+     */
+    public void updateUserId(int userId) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE Post SET id_User = ? WHERE id_User = "+ userId);
+            statement.setInt(1, 1);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

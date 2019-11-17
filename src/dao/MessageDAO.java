@@ -151,4 +151,18 @@ public class MessageDAO implements DAO<Message> {
         return numberOfRows;
 
     }
+
+    /**
+     * Replace post's author by the Undefined User
+     * @param userId
+     */
+    public void updateUserId(int userId) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE Message SET id_User = ? WHERE id_User = "+ userId);
+            statement.setInt(1, 1);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

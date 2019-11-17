@@ -8,13 +8,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.Message;
+import model.Post;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MessageListController {
 
-	@FXML
-	private Button postBtn;
 	@FXML
 	private TextArea msgArea;
 	@FXML
@@ -22,7 +22,7 @@ public class MessageListController {
 
 	private MessageDAO messageDAO;
 	private MainApp mainApp;
-	private int postId;
+	private Post post;
 
 	public MessageListController() {
 		messageDAO = new MessageDAO();
@@ -32,15 +32,15 @@ public class MessageListController {
 		this.mainApp = mainApp;
 	}
 
-	public void setPostId(int postId) {
-		this.postId = postId;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 	@FXML
 	public void initialize(){
 		/* displaying message list */
-		if(postId != 0){
-			ArrayList<Message> messages = messageDAO.selectByColName("id_Post", String.valueOf(postId));
+		if(post !=  null){
+			ArrayList<Message> messages = messageDAO.selectByColName("id_Post", String.valueOf(post.getId()));
 			for(Message message: messages){
 				try{
 					FXMLLoader loader = new FXMLLoader();
@@ -68,7 +68,7 @@ public class MessageListController {
 			Message message = new Message();
 			message.setContent(msgArea.getText());
 			message.setUserId(mainApp.getUser().getId());
-			message.setPostId(postId);
+			message.setPostId(post.getId());
 			messageDAO.insert(message);
 			initialize();
 		}

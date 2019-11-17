@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Post;
+import model.Topic;
 import model.User;
 
 
@@ -60,7 +62,7 @@ public class MainApp extends Application {
 		return user;
 	}
 
-	public void showPostListPane(int topicId) {
+	public void showPostListPane(Topic topic) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/PostListPane.fxml"));
@@ -74,7 +76,7 @@ public class MainApp extends Application {
 			//Allowing Controller to access the view
 			postListController = loader.getController();
 			postListController.setMainApp(this);
-			postListController.setTopic(topicId);
+			postListController.setTopic(topic);
 			postListController.initialize();
 
 		} catch (IOException e) {
@@ -142,7 +144,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showMessageListPane(int postId) {
+	public void showMessageListPane(Post post) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/MessageListPane.fxml"));
@@ -156,7 +158,7 @@ public class MainApp extends Application {
 			//Allowing Controller to access the view
 			messageListController = loader.getController();
 			messageListController.setMainApp(this);
-			messageListController.setPostId(postId);
+			messageListController.setPost(post);
 			messageListController.initialize();
 
 		} catch (IOException e) {

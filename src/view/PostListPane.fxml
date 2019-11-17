@@ -14,7 +14,10 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="postBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
+                  <VBox fx:id="postBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding></VBox>
                </content>
             </ScrollPane>
          </center>
@@ -48,14 +51,21 @@
             </HBox>
          </bottom>
          <top>
-            <VBox maxHeight="50.0" prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox maxHeight="50.0" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: ddd;" BorderPane.alignment="CENTER">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                  <Text fx:id="topicNameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="topic name">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="topicDescriptionTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="description">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" />
+                     </VBox.margin>
+                  </Text>
                </children>
             </VBox>
          </top>
