@@ -22,8 +22,8 @@ public class TopicController {
 
     private MainApp mainApp;
     private Topic topic;
-    private DAO<Post> postDAO;
-    private DAO<Message> messageDAO;
+    private PostDAO postDAO;
+    private MessageDAO messageDAO;
 
     public TopicController() {
         postDAO = new PostDAO();
@@ -42,8 +42,8 @@ public class TopicController {
     public void initialize(){
         if(topic != null){
             nameTxt.setText(topic.getTopicName());
-            nbMsgTxt.setText("nb Message TODO"); // TODO nb msg
-            nbPostTxt.setText(postDAO.countTableRow(topicId)); // TODO nb post
+            nbMsgTxt.setText(String.valueOf(messageDAO.countMessageByTopic(topic.getId())));
+            nbPostTxt.setText(String.valueOf(postDAO.countPostByTopic(topic.getId())));
             descTxt.setText(topic.getTopicDescription());
         }
     }

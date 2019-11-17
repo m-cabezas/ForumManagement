@@ -37,9 +37,9 @@ public class HeaderController {
 		// TODO: Populate the userComboBox thanks to the userDao
 		ArrayList<User> users = userDAO.getAll();
 		for(User user : users){
-			if(user.getId() != 1){
+//			if(user.getId() != 1){
 				userComboBox.getItems().add(user.getId() + " - " + user.getPseudo());
-			}
+//			}
 
 		}
 	}

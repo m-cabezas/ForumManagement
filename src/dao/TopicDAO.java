@@ -2,10 +2,8 @@ package dao;
 
 import model.Topic;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class TopicDAO implements DAO<Topic> {
@@ -20,6 +18,18 @@ public class TopicDAO implements DAO<Topic> {
         try {
             stmt = conn.createStatement();
             stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Topic topic) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE Topic SET topic_name = ?, topic_description = ? WHERE id = "+ topic.getId());
+            statement.setString(1, topic.getTopicName());
+            statement.setString(2, topic.getTopicDescription());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

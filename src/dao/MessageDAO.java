@@ -29,7 +29,7 @@ public class MessageDAO implements DAO<Message> {
         try {
             PreparedStatement statement = conn.prepareStatement("UPDATE Message SET content = ?, date_of_creation = ?, id_Post = ?, id_User = ? WHERE id = "+message.getId());
             statement.setString(1,message.getContent());
-            statement.setDate(2,message.getDateOfCreation().toInstant().atZone(ZoneId.from("Paris")).toLocalDate());
+            statement.setDate(2, java.sql.Date.valueOf(message.getDateOfCreation().toInstant().atZone(ZoneId.of("ECT")).toLocalDate()));
             statement.setInt(3,message.getPostId());
             statement.setInt(4, message.getUserId());
 
@@ -121,5 +121,35 @@ public class MessageDAO implements DAO<Message> {
             e.printStackTrace();
         }
         return numberOfRows;
-    };
+    }
+
+    public int countMessageByPost(int postId){
+        String query = "SELECT COUNT(*) FROM " + tableName + " WHERE  id_Post =" + postId;
+        Statement stmt = null;
+        int numberOfRows = 0;
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            numberOfRows = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return numberOfRows;
+
+    }
+
+    public int countMessageByTopic(int topicId){
+        String query = "SELECT COUNT(*) FROM " + tableName + " LEFT JOIN Post P on Message.id_Post = P.id WHERE id_Topic =" + topicId;
+        Statement stmt = null;
+        int numberOfRows = 0;
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            numberOfRows = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return numberOfRows;
+
+    }
 }

@@ -2,10 +2,8 @@ package dao;
 
 import model.Post;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,6 +19,21 @@ public class PostDAO implements DAO<Post> {
         try {
             stmt = conn.createStatement();
             stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Post post) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE Post SET id_Topic = ?, post_name = ?, post_description = ?, date_of_creation = ?, last_update = ?,  WHERE id = "+ post.getId());
+            statement.setInt(1, post.getTopicId());
+            statement.setString(2, post.getPostName());
+            statement.setString(3, post.getDescription());
+            statement.setDate(4, java.sql.Date.valueOf(post.getDateOfCreation().toInstant().atZone(ZoneId.of("ECT")).toLocalDate()));
+            statement.setDate(5, java.sql.Date.valueOf(post.getLastUpdate().toInstant().atZone(ZoneId.of("ECT")).toLocalDate()));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,5 +120,19 @@ public class PostDAO implements DAO<Post> {
             e.printStackTrace();
         }
         return numberOfRows;
-    };
+    }
+
+    public int countPostByTopic(int topicId){
+        String query = "SELECT COUNT(*) FROM " + tableName + " WHERE  id_Topic = " + topicId;
+        Statement stmt = null;
+        int numberOfRows = 0;
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            numberOfRows = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return numberOfRows;
+    }
 }

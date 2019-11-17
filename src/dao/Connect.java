@@ -6,15 +6,12 @@ import java.sql.SQLException;
 
 public class Connect {
 
-    private static String url;
-    private static String user;
-    private static String password;
     private static Connection conn;
 
     public static Connection getInstance() {
         if (conn == null) {
             try {
-                conn = DriverManager.getConnection(url, user, password);
+                conn = DriverManager.getConnection("jdbc:sqlite:database/sqlite.db");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
