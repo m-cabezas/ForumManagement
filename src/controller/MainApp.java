@@ -130,7 +130,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showAdminPane() {
+	public void showAdminPane(int userId) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/AdminPane.fxml"));
@@ -144,6 +144,8 @@ public class MainApp extends Application {
 			//Allowing Controller to access the view
 			adminController = loader.getController();
 			adminController.setMainApp(this);
+			adminController.setUserId(userId);
+			adminController.initialize();
 
 		} catch (IOException e) {
 			e.printStackTrace();

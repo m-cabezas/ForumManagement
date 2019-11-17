@@ -123,4 +123,23 @@ public class UserDAO implements DAO<User> {
         }
         return numberOfRows;
     }
+
+    public ArrayList<Topic> getTopicByUserId(int id) {
+        String query = "SELECT * FROM Topic LEFT JOIN Administrate ON Topic.id=Administrate.id_Topic LEFT JOIN " + tableName + " ON Administrate.id_User=" + tableName + ".id WHERE " + tableName + ".id=" + id;
+        Statement stmt = null;
+        ArrayList<Topic> topics = new ArrayList<>();
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            while (resultSet.next()) {
+                String topicName = resultSet.getString("topic_name");
+                String topicDescription = resultSet.getString("topic_description");
+                Topic topic = new Topic(id,topicName,topicDescription);
+                topics.add(topic);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return topics;
+    }
 }

@@ -81,4 +81,9 @@ public class User {
 		this.admin = admin;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		User tmp = (User) obj;
+		return tmp.getId() == this.getId();
+	}
 }

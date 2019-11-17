@@ -20,6 +20,7 @@ public class HeaderController {
 
 	private UserDAO userDAO;
 	private MainApp mainApp;
+	private User currentUser;
 
 	public HeaderController() {
 		userDAO = new UserDAO();
@@ -51,7 +52,7 @@ public class HeaderController {
 	@FXML
 	private void pickUser(){
 		String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-" , 2);
-		User currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
+		currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
 		currentUserTxt.setText(currentUser.getPseudo());
 		currentUserTxt.setVisible(true);
 		if(currentUser.isAdmin()){
@@ -69,6 +70,6 @@ public class HeaderController {
 
 	@FXML
 	private void showAdminArea(){
-		mainApp.showAdminPane();
+		mainApp.showAdminPane(currentUser.getId());
 	}
 }
