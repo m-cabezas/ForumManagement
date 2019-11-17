@@ -46,8 +46,10 @@ public class HeaderController {
 
 	@FXML
 	public void pickUser(){
-		String parts[] = userComboBox.getSelectionModel().getSelectedItem().split(" - ", 1);
-		User currentUser = userDAO.selectById(Integer.valueOf(parts[0]));
+		String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-" , 2);
+		User currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
+		currentUserTxt.setText(currentUser.getPseudo());
+		currentUserTxt.setVisible(true);
 		mainApp.setUser(currentUser);
 	}
 }
