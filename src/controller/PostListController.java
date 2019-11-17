@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import model.Post;
+import model.Topic;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +21,13 @@ public class PostListController {
 	private TextField descField;
 	@FXML
 	private VBox postBox;
+	@FXML
+	private Text topicNameTxt;
+	@FXML
+	private Text topicDescriptionTxt;
 
 	private MainApp mainApp;
-	private int topicId;
+	private Topic topic;
 	private PostDAO postDAO;
 
 	public PostListController() {
@@ -32,19 +38,22 @@ public class PostListController {
 		this.mainApp = mainApp;
 	}
 
-	public void setTopic(int topicId){
-		this.topicId = topicId;
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 
 	@FXML
 	public void initialize(){
 
 		/* displaying post list */
-		if(topicId != 0){
+		if(topic != null){
+			topicNameTxt.setText(topic.getTopicName());
+			topicDescriptionTxt.setText("Description: " + topic.getTopicDescription());
+
 			if(!postBox.getChildren().isEmpty()){
 				postBox.getChildren().clear();
 			}
-			ArrayList<Post> posts = postDAO.selectByColName("id_Topic", String.valueOf(topicId));
+			ArrayList<Post> posts = postDAO.selectByColName("id_Topic", String.valueOf(topic.getId()));
 			for(Post post: posts){
 				try{
 					FXMLLoader loader = new FXMLLoader();
@@ -72,7 +81,7 @@ public class PostListController {
 			Post post = new Post();
 			post.setPostName(nameField.getText());
 			post.setDescription(descField.getText());
-			post.setTopicId(topicId);
+			post.setTopicId(topic.getId());
 			post.setUserId(mainApp.getUser().getId());
 			postDAO.insert(post);
 			initialize();

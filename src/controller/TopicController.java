@@ -51,7 +51,7 @@ public class TopicController {
     @FXML
     private void showPostList(){
         if(mainApp != null){
-            mainApp.showPostListPane(topic.getId());
+            mainApp.showPostListPane(topic);
         }
 
     }
