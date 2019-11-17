@@ -1,17 +1,51 @@
 package model;
 
+import java.util.Date;
+
 public class Post {
 
 	private int id;
-	private int title;
-	private int creator;
-	private int dateOfCreation;
-	private int lastUpdate;
+	private int topicId;
+	private int userId;
+	private String postName;
+	private Date dateOfCreation;
+	private Date lastUpdate;
 
 	public Post() {
 	}
 
+	public Post(int id, int topicId, int userId, String postName, Date dateOfCreation, Date lastUpdate) {
+		this.id = id;
+		this.topicId = topicId;
+		this.userId = userId;
+		this.postName = postName;
+		this.dateOfCreation = dateOfCreation;
+		this.lastUpdate = lastUpdate;
+	}
 
+	public int getTopicId() {
+		return topicId;
+	}
+
+	public void setTopicId(int topicId) {
+		this.topicId = topicId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getPostName() {
+		return postName;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
+	}
 
 	public int getId() {
 		return id;
@@ -21,35 +55,19 @@ public class Post {
 		this.id = id;
 	}
 
-	public int getTitle() {
-		return title;
-	}
-
-	public void setTitle(int title) {
-		this.title = title;
-	}
-
-	public int getCreator() {
-		return creator;
-	}
-
-	public void setCreator(int creator) {
-		this.creator = creator;
-	}
-
-	public int getDateOfCreation() {
+	public Date getDateOfCreation() {
 		return dateOfCreation;
 	}
 
-	public void setDateOfCreation(int dateOfCreation) {
+	public void setDateOfCreation(Date dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
 
-	public int getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(int lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 }

@@ -1,7 +1,6 @@
 package dao;
 
 import model.Topic;
-import model.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -39,7 +38,7 @@ public class TopicDAO implements DAO<Topic> {
     }
 
     @Override
-    public void selectByColName(String colName, String value) {
+    public ArrayList<Topic> selectByColName(String colName, String value) {
         String query = "SELECT * FROM " + tableName + " WHERE " + colName + "=" + value;
         return getTopics(query);
     }
@@ -50,26 +49,54 @@ public class TopicDAO implements DAO<Topic> {
         return getTopics(query);
     }
 
-    private ArrayList<User> getUsers(String query) {
+    private ArrayList<Topic> getTopics(String query) {
         Statement stmt = null;
-        ArrayList<Topic> Topics = new ArrayList<>();
+        ArrayList<Topic> topics = new ArrayList<>();
         try {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
-                String topicName =
-                User user = new User(id,admin,age,biography,name,pseudo,surname);
-                users.add(user);
+                String topicName = resultSet.getString(2);
+                String topicDescription = resultSet.getString(3);
+                Topic topic = new Topic(id,topicName,topicDescription);
+                topics.add(topic);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return users;
+        return topics;
     }
 
     @Override
-    public void selectById(int id) {
-
+    public Topic selectById(int id) {
+        String query = "SELECT * FROM " + tableName + " WHERE id=" + id;
+        Statement stmt = null;
+        Topic topic = new Topic();
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            String topicName = resultSet.getString(2);
+            String topicDescription = resultSet.getString(3);
+            topic = new Topic(id,topicName,topicDescription);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return topic;
     }
+
+    @Override
+    public int countTableRow() {
+        String query = "SELECT COUNT(*) FROM " + tableName;
+        Statement stmt = null;
+        int numberOfRows = 0;
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            numberOfRows = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return numberOfRows;
+    };
 }

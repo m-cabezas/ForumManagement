@@ -1,6 +1,5 @@
 package dao;
 
-import dao.DAO.*;
 import model.Message;
 
 import java.sql.Connection;
@@ -95,4 +94,19 @@ public class MessageDAO implements DAO<Message> {
         }
         return message;
     }
+
+    @Override
+    public int countTableRow() {
+        String query = "SELECT COUNT(*) FROM " + tableName;
+        Statement stmt = null;
+        int numberOfRows = 0;
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            numberOfRows = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return numberOfRows;
+    };
 }

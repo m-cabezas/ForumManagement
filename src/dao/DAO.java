@@ -34,4 +34,6 @@ public interface DAO<Table> {
 	 */
 	Table selectById(int id);
 
+	int countTableRow();
+
 }
