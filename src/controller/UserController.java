@@ -18,8 +18,6 @@ public class UserController {
 	@FXML
 	private Text biographyTxt;
 	@FXML
-	private Text userIdTxt;
-	@FXML
 	private Text adminTxt;
 
 	private UserDAO userDAO;
@@ -47,12 +45,16 @@ public class UserController {
 		if(userId != 0){
 			user = userDAO.selectById(userId);
 			pseudoTxt.setText(user.getPseudo());
-			nameTxt.setText(user.getName());
-			surnameTxt.setText(user.getSurname());
-			ageTxt.setText(String.valueOf(user.getAge()));
-			biographyTxt.setText(user.getBiography());
-			userIdTxt.setText(String.valueOf(user.getId()));
-			adminTxt.setText(String.valueOf(user.isAdmin()));
+			nameTxt.setText("Name: " + user.getName());
+			surnameTxt.setText("Surname: " + user.getSurname());
+			ageTxt.setText(String.valueOf("Age: " + user.getAge()));
+			biographyTxt.setText("Biography: \n" + user.getBiography());
+
+			if(user.isAdmin()){
+				adminTxt.setVisible(true);
+			}else{
+				adminTxt.setVisible(false);
+			}
 		}
 	}
 }

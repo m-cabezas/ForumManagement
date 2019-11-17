@@ -3,17 +3,21 @@ package controller;
 import dao.MessageDAO;
 import dao.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.text.Text;
 import model.Message;
 import model.User;
 
 public class MessageController {
-    @FXML
-    private Text pseudoTxt;
+
     @FXML
     private Text dateTxt;
     @FXML
     private Text contentTxt;
+    @FXML
+    private Hyperlink authorLink;
+    @FXML
+    private Text adminTxt;
 
     private MainApp mainApp;
     private Message message;
@@ -36,9 +40,14 @@ public class MessageController {
     public void initialize(){
         if(message != null){
             user = userDAO.selectById(message.getUserId());
-            pseudoTxt.setText(user.getPseudo());
+            authorLink.setText(user.getPseudo());
             dateTxt.setText("Date of creation: " + message.getDateOfCreation());
             contentTxt.setText(message.getContent());
+            if(user.isAdmin()){
+                adminTxt.setVisible(true);
+            }else {
+                adminTxt.setVisible(false);
+            }
         }
 
     }

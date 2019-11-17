@@ -57,8 +57,11 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
                         </Text>
-                        <Hyperlink fx:id="authorLink" onAction="#showUser" text="Hyperlink" />
+                        <Hyperlink fx:id="authorLink" onAction="#showUser" prefHeight="0.0" prefWidth="73.0" text="Hyperlink" />
                      </children>
                   </HBox>
                </left>

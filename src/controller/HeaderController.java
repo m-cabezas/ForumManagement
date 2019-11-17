@@ -2,6 +2,7 @@ package controller;
 
 import dao.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 import model.User;
@@ -14,6 +15,8 @@ public class HeaderController {
 	private ComboBox<String> userComboBox;
 	@FXML
 	private Text currentUserTxt;
+	@FXML
+	private Button adminAreaBtn;
 
 	private UserDAO userDAO;
 	private MainApp mainApp;
@@ -28,6 +31,7 @@ public class HeaderController {
 
 	@FXML
 	public void initialize(){
+		adminAreaBtn.setVisible(false);
 		if(mainApp == null || mainApp.getUser() == null){
 			currentUserTxt.setVisible(false);
 		}else{
@@ -50,11 +54,21 @@ public class HeaderController {
 		User currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
 		currentUserTxt.setText(currentUser.getPseudo());
 		currentUserTxt.setVisible(true);
+		if(currentUser.isAdmin()){
+			adminAreaBtn.setVisible(true);
+		}else{
+			adminAreaBtn.setVisible(false);
+		}
 		mainApp.setUser(currentUser);
 	}
 
 	@FXML
 	private void showTopics(){
 		mainApp.showTopicListPane();
+	}
+
+	@FXML
+	private void showAdminArea(){
+		mainApp.showAdminPane();
 	}
 }
