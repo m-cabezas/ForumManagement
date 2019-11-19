@@ -14,11 +14,18 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void insert(User user) {
-        String query = "INSERT INTO " + tableName + " (admin,age,biography,name,pseudo,surname) VALUES ("+ user.isAdmin() + ",'" + user.getAge() + "','" + user.getBiography() + "','" + user.getAge() + "','" + user.getPseudo() + "','" + user.getSurname() + "')";
-        Statement stmt = null;
+        System.out.println("insert");
+        String query = "INSERT INTO " + tableName + " (admin,age,biography,name,pseudo,surname) VALUES (?,?,?,?,?,?)";
+
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(query);
+            PreparedStatement prepStmt = conn.prepareStatement(query);
+            prepStmt.setBoolean(1, user.isAdmin());
+            prepStmt.setInt(2, user.getAge());
+            prepStmt.setString(3, user.getBiography());
+            prepStmt.setString(4, user.getName());
+            prepStmt.setString(5, user.getPseudo());
+            prepStmt.setString(6, user.getSurname());
+            prepStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -27,16 +34,24 @@ public class UserDAO implements DAO<User> {
     @Override
     public void update(User user) {
         try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE User SET admin = ?, age = ?, biography = ?, name = ?, pseudo = ?, surname = ? WHERE id = "+ user.getId());
+            String query = "UPDATE User SET admin = ?, age = ?, biography = ?, name = ?, pseudo = ?, surname = ? WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
             statement.setBoolean(1, user.isAdmin());
             statement.setInt(2, user.getAge());
             statement.setString(3, user.getBiography());
             statement.setString(4, user.getName());
             statement.setString(5, user.getPseudo());
             statement.setString(6, user.getSurname());
+            statement.setInt(7, user.getId());
 
             statement.executeUpdate();
 
+            if(!user.isAdmin()){
+                query = "DELETE  FROM Administrate WHERE id_User = ?";
+                PreparedStatement prepStmt = conn.prepareStatement(query);
+                prepStmt.setInt(1, user.getId());
+                prepStmt.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,9 +59,22 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void delete(User user) {
-        String query = "DELETE FROM " + tableName + " WHERE id =" + user.getId();
-        Statement stmt = null;
         try {
+            String query = "UPDATE Post SET id_User = 1 WHERE id_User = ?";
+            PreparedStatement prepStmt = conn.prepareStatement(query);
+            prepStmt.setInt(1, user.getId());
+            prepStmt.executeUpdate();
+            query = "UPDATE Message SET id_User = 1 WHERE id_User = ?";
+            prepStmt = conn.prepareStatement(query);
+            prepStmt.setInt(1, user.getId());
+            prepStmt.executeUpdate();
+            query = "DELETE  FROM Administrate WHERE id_User = ?";
+            prepStmt = conn.prepareStatement(query);
+            prepStmt.setInt(1, user.getId());
+            prepStmt.executeUpdate();
+
+            query = "DELETE FROM " + tableName + " WHERE id =" + user.getId();
+            Statement stmt = null;
             stmt = conn.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException e) {
@@ -133,6 +161,7 @@ public class UserDAO implements DAO<User> {
             stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()) {
+                int topicId = resultSet.getInt("id");
                 String topicName = resultSet.getString("topic_name");
                 String topicDescription = resultSet.getString("topic_description");
                 query = "SELECT id_User FROM Administrate WHERE id_Topic = ?";
@@ -143,7 +172,7 @@ public class UserDAO implements DAO<User> {
                 while (userRes.next()){
                     adminIds.add(userRes.getInt("id_user"));
                 }
-                Topic topic = new Topic(id,topicName,topicDescription, adminIds);
+                Topic topic = new Topic(topicId,topicName,topicDescription, adminIds);
                 topics.add(topic);
             }
         } catch (SQLException e) {

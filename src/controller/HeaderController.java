@@ -56,7 +56,6 @@ public class HeaderController {
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
-            System.out.println("clone");
             updateUserList(user);
             pickUser();
         } else {
@@ -67,7 +66,6 @@ public class HeaderController {
     }
 
     public void updateUserList(User prevUser) {
-        System.out.println("update");
         if (!userComboBox.getItems().isEmpty()) {
             userComboBox.getItems().clear();
         }
@@ -90,6 +88,8 @@ public class HeaderController {
 
         if (index != -1) {
             userComboBox.getSelectionModel().select(index);
+        }else{
+            userComboBox.getSelectionModel().select(0);
         }
 
     }
@@ -114,6 +114,9 @@ public class HeaderController {
 
     @FXML
     private void pickUser() {
+
+
+        /* updating current user */
         try {
             String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-", 2);
             currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
@@ -131,7 +134,18 @@ public class HeaderController {
         }
 
         mainApp.setUser(currentUser);
+        /* if we are in the admin pane, we request the main app to show the topics */
+        if(mainApp.getUser() != null){
+            if (!mainApp.getUser().isAdmin() && mainApp.getLastPane().getMethodStr().equals("showAdminPane")) {
+                mainApp.showTopicListPane();
+            } else if (mainApp.getUser().isAdmin() && mainApp.getLastPane().getMethodStr().equals("showAdminPane")) {
+                mainApp.showAdminPane(mainApp.getUser().getId());
+            }
+        }
+
         mainApp.refresh();
+
+
     }
 
     @FXML
@@ -175,4 +189,5 @@ public class HeaderController {
     private void showAdminArea() {
         mainApp.showAdminPane(currentUser.getId());
     }
+
 }

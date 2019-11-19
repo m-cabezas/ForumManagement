@@ -3,9 +3,7 @@ package dao;
 import model.Post;
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.sql.Date;
 
 public class PostDAO implements DAO<Post> {
 
@@ -14,11 +12,14 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void insert(Post post) {
-        String query = "INSERT INTO " + tableName + " (id_Topic,post_name,post_description,date_of_creation,last_update,id_User) VALUES ('" + post.getTopicId()+ "','" + post.getPostName() + "','" + post.getDescription() + "',date('now'), date('now'),'" + post.getUserId() + "')";
-        Statement stmt = null;
+        String query = "INSERT INTO " + tableName + " (id_Topic,post_name,post_description,date_of_creation,last_update,id_User) VALUES (?,?,?,date('now'), date('now'),?)";
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(query);
+            PreparedStatement prepStmt = conn.prepareStatement(query);
+            prepStmt.setInt(1, post.getTopicId());
+            prepStmt.setString(2, post.getPostName());
+            prepStmt.setString(3, post.getDescription());
+            prepStmt.setInt(4, post.getUserId());
+            prepStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
