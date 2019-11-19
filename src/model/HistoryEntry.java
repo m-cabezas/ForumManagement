@@ -35,4 +35,10 @@ public class HistoryEntry {
     public void setSecondMethodParameter(Object secondMethodParameter) {
         this.secondMethodParameter = secondMethodParameter;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        HistoryEntry tmp = (HistoryEntry) obj;
+        return this.getMethodStr().equals(tmp.methodStr) && this.getMethodParameter().equals(tmp.methodParameter) && this.getSecondMethodParameter().equals(tmp.getSecondMethodParameter());
+    }
 }

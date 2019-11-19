@@ -234,7 +234,12 @@ public class MainApp extends Application {
                 HistoryEntry previousHistoryEntry = history.get(history.size() - 2);
                 System.out.println(previousHistoryEntry.getMethodStr());
                 System.out.println(" attributes verified : " + historyEntry.getMethodStr() + "!=" + previousHistoryEntry.getMethodStr() + " && " + historyEntry.getMethodParameter() + "!=" + previousHistoryEntry.getMethodParameter() + " && " + historyEntry.getSecondMethodParameter() + "!=" + previousHistoryEntry.getSecondMethodParameter());
-                if (!historyEntry.getMethodStr().equals(previousHistoryEntry.getMethodStr()) && !historyEntry.getMethodParameter().equals(previousHistoryEntry.getMethodParameter()) && !historyEntry.getSecondMethodParameter().equals(previousHistoryEntry.getSecondMethodParameter())) {
+//                if (!historyEntry.getMethodStr().equals(previousHistoryEntry.getMethodStr()) && !historyEntry.getMethodParameter().equals(previousHistoryEntry.getMethodParameter()) && !historyEntry.getSecondMethodParameter().equals(previousHistoryEntry.getSecondMethodParameter())) {
+//                    System.out.println("we add " + historyEntry.getMethodStr());
+//                    history.add(historyEntry);
+//                    positionIndex++;
+//                }
+				if (!historyEntry.equals(previousHistoryEntry)) {
                     System.out.println("we add " + historyEntry.getMethodStr());
                     history.add(historyEntry);
                     positionIndex++;
