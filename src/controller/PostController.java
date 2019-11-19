@@ -9,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.text.Text;
 import model.Post;
-import model.Topic;
 
+import model.Topic;
 public class PostController {
     @FXML
     private Text nameTxt;
@@ -54,8 +54,10 @@ public class PostController {
             descTxt.setText("Description: " + post.getDescription());
             authorLink.setText(userDAO.selectById(post.getUserId()).getPseudo());
             deletePostBttn.setVisible(false);
-            if (post.getUserId() == mainApp.getUser().getId()) {
-                deletePostBttn.setVisible(true);
+            if(mainApp.getUser() != null){
+                if (post.getUserId() == mainApp.getUser().getId()) {
+                    deletePostBttn.setVisible(true);
+                }
             }
         }
 

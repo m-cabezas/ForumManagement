@@ -16,25 +16,28 @@ public class TopicDAO implements DAO<Topic> {
 
     @Override
     public void insert(Topic topic) {
-        String  formatName =  topic.getTopicName().replaceAll("'", "\\\\\'");
-        String formatDesc = topic.getTopicDescription().replaceAll("'", "\\\\\'");
-        String query = "INSERT INTO " + tableName + " (topic_name,topic_description) VALUES ('" + formatName + "','" + formatDesc + "')";
-        System.out.println(query);
-        Statement stmt = null;
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(query);
+            String query = "INSERT INTO " + tableName + " (topic_name,topic_description) VALUES (?,?)";
+            PreparedStatement stmt = null;
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, topic.getTopicName());
+            stmt.setString(2, topic.getTopicDescription());
+            stmt.executeUpdate();
 
             query = "";
-            for(Integer adminId : topic.getAdministrators()){
-                String querySelect = "SELECT id FROM " + tableName + " WHERE topic_name = " + topic.getTopicName();
+            for (Integer adminId : topic.getAdministrators()) {
+                String querySelect = "SELECT id FROM " + tableName + " WHERE topic_name = '" + topic.getTopicName() + "'";
                 Statement stmtSelect = conn.createStatement();
                 ResultSet res = stmtSelect.executeQuery(querySelect);
 
-                query += " INSERT INTO Administrate (id_User, id_Topic) VALUES("+ adminId +", "+ res.getInt(0)+"); ";
-            }
+                query += " INSERT INTO Administrate (id_User, id_Topic) VALUES(?,?); ";
+                stmt = conn.prepareStatement(query);
+                stmt.setInt(1, adminId);
+                stmt.setInt(2, res.getInt("id"));
 
-            stmt.executeUpdate(query);
+                stmt.executeUpdate();
+            }
+            ;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,7 +46,7 @@ public class TopicDAO implements DAO<Topic> {
     @Override
     public void update(Topic topic) {
         try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE Topic SET topic_name = ?, topic_description = ? WHERE id = "+ topic.getId());
+            PreparedStatement statement = conn.prepareStatement("UPDATE Topic SET topic_name = ?, topic_description = ? WHERE id = " + topic.getId());
             statement.setString(1, topic.getTopicName());
             statement.setString(2, topic.getTopicDescription());
 
@@ -87,7 +90,7 @@ public class TopicDAO implements DAO<Topic> {
                 int id = resultSet.getInt("id");
                 String topicName = resultSet.getString("topic_name");
                 String topicDescription = resultSet.getString("topic_description");
-                Topic topic = new Topic(id,topicName,topicDescription);
+                Topic topic = new Topic(id, topicName, topicDescription);
                 topics.add(topic);
             }
         } catch (SQLException e) {
@@ -106,7 +109,7 @@ public class TopicDAO implements DAO<Topic> {
             ResultSet resultSet = stmt.executeQuery(query);
             String topicName = resultSet.getString("topic_name");
             String topicDescription = resultSet.getString("topic_description");
-            topic = new Topic(id,topicName,topicDescription);
+            topic = new Topic(id, topicName, topicDescription);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -126,5 +129,7 @@ public class TopicDAO implements DAO<Topic> {
             e.printStackTrace();
         }
         return numberOfRows;
-    };
+    }
+
+    ;
 }

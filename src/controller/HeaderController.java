@@ -21,7 +21,7 @@ public class HeaderController {
 	private UserDAO userDAO;
 	private MainApp mainApp;
 	private User currentUser;
-	private int selectedIndex = -1;
+
 
 	public HeaderController() {
 		userDAO = new UserDAO();
@@ -41,48 +41,76 @@ public class HeaderController {
 			currentUserTxt.setVisible(true);
 		}
 
-		updateUserList();
+		if(mainApp != null && mainApp.getUser() != null){
+			User user = new User();
+			user = mainApp.getUser();
+			updateUserList(user);
+		}else{
+			updateUserList(null);
+		}
 
 
 	}
 
-	public void updateUserList(){
+	public void updateUserList(User prevUser){
 		if(!userComboBox.getItems().isEmpty()){
 			userComboBox.getItems().clear();
 		}
 		ArrayList<User> users = userDAO.getAll();
+		int i = 0;
+		int index = -1;
+		userComboBox.getItems().add("Visitor");
 		for(User user : users){
 			if(user.getId() != 1){
 				userComboBox.getItems().add(user.getId() + " - " + user.getPseudo());
+				if(prevUser != null){
+					if(prevUser.equals(user)){
+						index = i;
+					}
+				}
 
 			}
+			i++;
 		}
-		System.out.println("Update: " + selectedIndex);
-		if(selectedIndex != -1){
-			userComboBox.getSelectionModel().select(selectedIndex);
-			pickUser();
+
+		if(index != -1){
+			userComboBox.getSelectionModel().select(index);
 		}
+
 	}
 
 	@FXML
 	private void pickUser(){
-		selectedIndex = userComboBox.getSelectionModel().getSelectedIndex();
-		System.out.println(selectedIndex);
-		String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-" , 2);
-		currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
-		currentUserTxt.setText(currentUser.getPseudo());
-		currentUserTxt.setVisible(true);
-		if(currentUser.isAdmin()){
-			adminAreaBtn.setVisible(true);
-		}else{
+		try{
+			String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-" , 2);
+			currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
+			currentUserTxt.setText(currentUser.getPseudo());
+			currentUserTxt.setVisible(true);
+			if(currentUser.isAdmin()){
+				adminAreaBtn.setVisible(true);
+			}else{
+				adminAreaBtn.setVisible(false);
+			}
+		}catch (NumberFormatException | NullPointerException e){
+			currentUser = null;
+			currentUserTxt.setText(null);
 			adminAreaBtn.setVisible(false);
 		}
+
 		mainApp.setUser(currentUser);
 		mainApp.refresh();
 	}
 
 	@FXML
 	private void showTopics(){
+		if(mainApp.getUser() != null){
+			User user = new User();
+			user = mainApp.getUser();
+			updateUserList(user);
+
+		}
+
+
 		mainApp.showTopicListPane();
 	}
 
