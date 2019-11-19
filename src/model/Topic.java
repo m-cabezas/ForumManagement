@@ -13,10 +13,11 @@ public class Topic {
 		administrators = new ArrayList<>();
 	}
 
-	public Topic(int id, String topicName, String topicDescription) {
+	public Topic(int id, String topicName, String topicDescription, ArrayList<Integer> administrators) {
 		this.id = id;
 		this.topicName = topicName;
 		this.topicDescription = topicDescription;
+		this.administrators = administrators;
 	}
 
 	public int getId() {

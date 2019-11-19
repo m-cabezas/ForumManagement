@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class User {
+public class User implements Cloneable{
 
 	private int id;
 	private String pseudo;
@@ -88,7 +88,7 @@ public class User {
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	public Object clone() throws CloneNotSupportedException {
 		User clone = new User();
 		clone.setId(this.getId());
 		clone.setPseudo(this.getPseudo());
