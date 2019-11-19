@@ -3,6 +3,7 @@ package controller;
 import dao.MessageDAO;
 import dao.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.text.Text;
 import model.Message;
@@ -18,6 +19,8 @@ public class MessageController {
     private Hyperlink authorLink;
     @FXML
     private Text adminTxt;
+    @FXML
+    private Button deleteMesageBttn;
 
     private MainApp mainApp;
     private Message message;
@@ -43,6 +46,10 @@ public class MessageController {
             authorLink.setText(user.getPseudo());
             dateTxt.setText("Date of creation: " + message.getDateOfCreation());
             contentTxt.setText(message.getContent());
+            deleteMesageBttn.setVisible(false);
+            if (message.getUserId() == mainApp.getUser().getId()) {
+                deleteMesageBttn.setVisible(true);
+            }
             if(user.isAdmin()){
                 adminTxt.setVisible(true);
             }else {
