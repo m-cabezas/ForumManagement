@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxWidth="900.0" prefHeight="200.0" prefWidth="900.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessageController">
    <children>
@@ -39,7 +38,16 @@
                         </HBox>
                      </left>
                      <right>
-                        <Button fx:id="deleteMesageBttn" mnemonicParsing="false" text="Delete message" BorderPane.alignment="CENTER" />
+                        <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text fx:id="managementInfoTxt" fill="#ae0303" strokeType="OUTSIDE" strokeWidth="0.0" text="You manage this topic">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Button fx:id="deleteMesageBttn" mnemonicParsing="false" onAction="#deleteMessage" text="Delete message" />
+                           </children>
+                        </HBox>
                      </right>
                   </BorderPane>
                </top>

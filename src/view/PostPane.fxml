@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="140.0" maxWidth="900.0" onMouseClicked="#showMessage" prefHeight="130.0" prefWidth="900.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PostController">
+<AnchorPane maxHeight="140.0" maxWidth="900.0" onMouseClicked="#showMessage" prefHeight="130.0" prefWidth="900.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PostController">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="200.0" maxWidth="700.0" prefHeight="200.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -64,7 +66,16 @@
                         </HBox>
                      </left>
                      <right>
-                        <Button fx:id="deletePostBttn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#deletePost" text="Delete post" BorderPane.alignment="CENTER" />
+                        <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text fx:id="managementInfoTxt" fill="#ae0303" strokeType="OUTSIDE" strokeWidth="0.0" text="You manage this topic">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Button fx:id="deletePostBttn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#deletePost" text="Delete post" />
+                           </children>
+                        </HBox>
                      </right>
                   </BorderPane>
                </top>

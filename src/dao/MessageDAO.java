@@ -44,7 +44,7 @@ public class MessageDAO implements DAO<Message> {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

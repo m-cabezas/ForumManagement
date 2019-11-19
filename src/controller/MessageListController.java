@@ -48,6 +48,10 @@ public class MessageListController {
         this.post = post;
     }
 
+    public Post getPost() {
+        return post;
+    }
+
     @FXML
     public void initialize() {
         enableUserRights(false);
@@ -78,6 +82,7 @@ public class MessageListController {
                     MessageController messageController = loader.getController();
                     messageController.setMainApp(mainApp);
                     messageController.setMessage(message);
+                    messageController.setPost(post);
                     messageController.initialize();
 
                 } catch (IOException e) {
