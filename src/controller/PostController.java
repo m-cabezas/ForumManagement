@@ -24,6 +24,8 @@ public class PostController {
     private Hyperlink authorLink;
     @FXML
     private Button deletePostBttn;
+    @FXML
+    private Text managementInfoTxt;
 
     private MainApp mainApp;
     private Post post;
@@ -54,9 +56,11 @@ public class PostController {
             descTxt.setText("Description: " + post.getDescription());
             authorLink.setText(userDAO.selectById(post.getUserId()).getPseudo());
             deletePostBttn.setVisible(false);
+            managementInfoTxt.setVisible(false);
             if(mainApp.getUser() != null){
                 if (post.getUserId() == mainApp.getUser().getId()) {
                     deletePostBttn.setVisible(true);
+                    managementInfoTxt.setVisible(true);
                 }
             }
         }

@@ -22,6 +22,8 @@ public class MessageController {
     private Text adminTxt;
     @FXML
     private Button deleteMesageBttn;
+    @FXML
+    private Text managementInfoTxt;
 
     private MainApp mainApp;
     private Message message;
@@ -46,29 +48,31 @@ public class MessageController {
     }
 
     @FXML
-    public void initialize(){
-        if(message != null) {
+    public void initialize() {
+        if (message != null) {
             user = userDAO.selectById(message.getUserId());
             authorLink.setText(user.getPseudo());
             dateTxt.setText("Date of creation: " + message.getDateOfCreation());
             contentTxt.setText(message.getContent());
             deleteMesageBttn.setVisible(false);
+            managementInfoTxt.setVisible(false);
             if (mainApp.getUser() != null) {
                 if (message.getUserId() == mainApp.getUser().getId()) {
                     deleteMesageBttn.setVisible(true);
+                    managementInfoTxt.setVisible(true);
                 }
-                if (user.isAdmin()) {
-                    adminTxt.setVisible(true);
-                } else {
-                    adminTxt.setVisible(false);
-                }
+            }
+            if (user.isAdmin()) {
+                adminTxt.setVisible(true);
+            } else {
+                adminTxt.setVisible(false);
             }
         }
 
     }
 
     @FXML
-    private void showUser(){
+    private void showUser() {
         mainApp.showUserPane(user.getId());
     }
 
