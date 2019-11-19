@@ -31,8 +31,8 @@ public class PostDAO implements DAO<Post> {
             statement.setInt(1, post.getTopicId());
             statement.setString(2, post.getPostName());
             statement.setString(3, post.getDescription());
-            statement.setDate(4, java.sql.Date.valueOf(post.getDateOfCreation()));
-            statement.setDate(5, java.sql.Date.valueOf(post.getLastUpdate()));
+            statement.setString(4, post.getDateOfCreation());
+            statement.setString(5, post.getLastUpdate());
             statement.setInt(6, post.getUserId());
             statement.executeUpdate();
         } catch (SQLException e) {

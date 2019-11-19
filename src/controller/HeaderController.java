@@ -21,6 +21,7 @@ public class HeaderController {
 	private UserDAO userDAO;
 	private MainApp mainApp;
 	private User currentUser;
+	private int selectedIndex = -1;
 
 	public HeaderController() {
 		userDAO = new UserDAO();
@@ -39,18 +40,34 @@ public class HeaderController {
 			currentUserTxt.setText(mainApp.getUser().getPseudo());
 			currentUserTxt.setVisible(true);
 		}
-		// TODO: Populate the userComboBox thanks to the userDao
+
+		updateUserList();
+
+
+	}
+
+	public void updateUserList(){
+		if(!userComboBox.getItems().isEmpty()){
+			userComboBox.getItems().clear();
+		}
 		ArrayList<User> users = userDAO.getAll();
 		for(User user : users){
 			if(user.getId() != 1){
 				userComboBox.getItems().add(user.getId() + " - " + user.getPseudo());
-			}
 
+			}
+		}
+		System.out.println("Update: " + selectedIndex);
+		if(selectedIndex != -1){
+			userComboBox.getSelectionModel().select(selectedIndex);
+			pickUser();
 		}
 	}
 
 	@FXML
 	private void pickUser(){
+		selectedIndex = userComboBox.getSelectionModel().getSelectedIndex();
+		System.out.println(selectedIndex);
 		String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-" , 2);
 		currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
 		currentUserTxt.setText(currentUser.getPseudo());
@@ -61,6 +78,7 @@ public class HeaderController {
 			adminAreaBtn.setVisible(false);
 		}
 		mainApp.setUser(currentUser);
+		mainApp.refresh();
 	}
 
 	@FXML

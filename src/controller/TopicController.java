@@ -42,8 +42,8 @@ public class TopicController {
     public void initialize(){
         if(topic != null){
             nameTxt.setText(topic.getTopicName());
-            nbMsgTxt.setText("Number of Message: " + messageDAO.countMessageByTopic(topic.getId()));
-            nbPostTxt.setText("Number of Post: " + postDAO.countPostByTopic(topic.getId()));
+            nbMsgTxt.setText("Number of Messages: " + messageDAO.countMessageByTopic(topic.getId()));
+            nbPostTxt.setText("Number of Posts: " + postDAO.countPostByTopic(topic.getId()));
             descTxt.setText("Description: " + topic.getTopicDescription());
         }
     }
