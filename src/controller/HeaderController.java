@@ -78,6 +78,7 @@ public class HeaderController {
 			adminAreaBtn.setVisible(false);
 		}
 		mainApp.setUser(currentUser);
+		mainApp.refresh();
 	}
 
 	@FXML
