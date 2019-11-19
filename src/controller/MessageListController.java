@@ -34,6 +34,7 @@ public class MessageListController {
     private PostDAO postDAO;
     private MainApp mainApp;
     private Post post;
+    private ArrayList<Integer> topicAdministrators;
 
     public MessageListController() {
         messageDAO = new MessageDAO();
@@ -46,6 +47,10 @@ public class MessageListController {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public void setTopicAdministrators(ArrayList<Integer> topicAdministrators) {
+        this.topicAdministrators = topicAdministrators;
     }
 
     public Post getPost() {
@@ -83,6 +88,7 @@ public class MessageListController {
                     messageController.setMainApp(mainApp);
                     messageController.setMessage(message);
                     messageController.setPost(post);
+                    messageController.setTopicAdministrators(topicAdministrators);
                     messageController.initialize();
 
                 } catch (IOException e) {

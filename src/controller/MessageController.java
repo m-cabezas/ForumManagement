@@ -10,6 +10,8 @@ import model.Message;
 import model.Post;
 import model.User;
 
+import java.util.ArrayList;
+
 public class MessageController {
 
     @FXML
@@ -30,6 +32,7 @@ public class MessageController {
     private UserDAO userDAO;
     private Post post;
     private User user;
+    private ArrayList<Integer> topicAdministrators;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -41,6 +44,10 @@ public class MessageController {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public void setTopicAdministrators(ArrayList<Integer> topicAdministrators) {
+        this.topicAdministrators = topicAdministrators;
     }
 
     public MessageController() {
@@ -57,8 +64,10 @@ public class MessageController {
             deleteMesageBttn.setVisible(false);
             managementInfoTxt.setVisible(false);
             if (mainApp.getUser() != null) {
-                if (message.getUserId() == mainApp.getUser().getId()) {
+                if ((message.getUserId() == mainApp.getUser().getId()) || (topicAdministrators.contains(mainApp.getUser().getId()))) {
                     deleteMesageBttn.setVisible(true);
+                }
+                if (topicAdministrators.contains(mainApp.getUser().getId())) {
                     managementInfoTxt.setVisible(true);
                 }
             }
@@ -80,6 +89,6 @@ public class MessageController {
     private void deleteMessage() {
         MessageDAO messageDAO = new MessageDAO();
         messageDAO.delete(message);
-        mainApp.showMessageListPane(post);
+        mainApp.showMessageListPane(post,topicAdministrators);
     }
 }

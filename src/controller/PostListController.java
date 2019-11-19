@@ -29,9 +29,11 @@ public class PostListController {
 	@FXML
 	private Button postBtn;
 
+
 	private MainApp mainApp;
 	private Topic topic;
 	private PostDAO postDAO;
+	private ArrayList<Integer> topicAdministrators;
 
 	public PostListController() {
 		postDAO = new PostDAO();
@@ -43,6 +45,10 @@ public class PostListController {
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
+	}
+
+	public void setTopicAdministrators(ArrayList<Integer> topicAdministrators) {
+		this.topicAdministrators = topicAdministrators;
 	}
 
 	@FXML
@@ -74,6 +80,7 @@ public class PostListController {
 					PostController postController = loader.getController();
 					postController.setMainApp(mainApp);
 					postController.setPost(post);
+					postController.setTopicAdministrators(topicAdministrators);
 					postController.initialize();
 
 				} catch (IOException e) {

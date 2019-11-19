@@ -11,6 +11,8 @@ import model.Message;
 import model.Post;
 import model.Topic;
 
+import java.util.ArrayList;
+
 public class TopicController {
 
     @FXML
@@ -30,6 +32,7 @@ public class TopicController {
     private Topic topic;
     private PostDAO postDAO;
     private MessageDAO messageDAO;
+    private ArrayList<Integer> topicAdministrators;
 
     public TopicController() {
         postDAO = new PostDAO();
@@ -44,9 +47,14 @@ public class TopicController {
         this.topic = topic;
     }
 
+    public ArrayList<Integer> getTopicAdministrators() {
+        return topicAdministrators;
+    }
+
     @FXML
     public void initialize(){
         if(topic != null){
+            topicAdministrators = topic.getAdministrators();
             nameTxt.setText(topic.getTopicName());
             nbMsgTxt.setText("Number of Messages: " + messageDAO.countMessageByTopic(topic.getId()));
             nbPostTxt.setText("Number of Posts: " + postDAO.countPostByTopic(topic.getId()));
@@ -54,7 +62,7 @@ public class TopicController {
             deleteTopicBttn.setVisible(false);
             managementInfoTxt.setVisible(false);
             if (mainApp.getUser() != null) {
-                if ((topic.getAdministrators().contains(mainApp.getUser().getId()))) {
+                if ((topicAdministrators.contains(mainApp.getUser().getId()))) {
                     deleteTopicBttn.setVisible(true);
                     managementInfoTxt.setVisible(true);
                 }
@@ -65,7 +73,7 @@ public class TopicController {
     @FXML
     private void showPostList(){
         if(mainApp != null){
-            mainApp.showPostListPane(topic);
+            mainApp.showPostListPane(topic,topicAdministrators);
         }
     }
 

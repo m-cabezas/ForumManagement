@@ -11,6 +11,9 @@ import javafx.scene.text.Text;
 import model.Post;
 
 import model.Topic;
+
+import java.util.ArrayList;
+
 public class PostController {
     @FXML
     private Text nameTxt;
@@ -32,6 +35,7 @@ public class PostController {
     private PostDAO postDAO;
     private MessageDAO messageDAO;
     private UserDAO userDAO;
+    private ArrayList<Integer> topicAdministrators;
 
     public PostController() {
         messageDAO = new MessageDAO();
@@ -47,6 +51,10 @@ public class PostController {
         this.post = post;
     }
 
+    public void setTopicAdministrators(ArrayList<Integer> topicAdministrators) {
+        this.topicAdministrators = topicAdministrators;
+    }
+
     @FXML
     public void initialize(){
         if(post != null){
@@ -58,8 +66,10 @@ public class PostController {
             deletePostBttn.setVisible(false);
             managementInfoTxt.setVisible(false);
             if(mainApp.getUser() != null){
-                if (post.getUserId() == mainApp.getUser().getId()) {
+                if ((post.getUserId() == mainApp.getUser().getId()) || (topicAdministrators.contains(mainApp.getUser().getId()))) {
                     deletePostBttn.setVisible(true);
+                }
+                if (topicAdministrators.contains(mainApp.getUser().getId())) {
                     managementInfoTxt.setVisible(true);
                 }
             }
@@ -69,7 +79,7 @@ public class PostController {
 
     @FXML
     private void showMessage(){
-        mainApp.showMessageListPane(post);
+        mainApp.showMessageListPane(post,topicAdministrators);
     }
 
     @FXML
@@ -81,6 +91,6 @@ public class PostController {
     private void deletePost() {
         TopicDAO topicDAO = new TopicDAO();
         postDAO.delete(post);
-        mainApp.showPostListPane(topicDAO.selectById(post.getTopicId()));
+        mainApp.showPostListPane(topicDAO.selectById(post.getTopicId()),topicAdministrators);
     }
 }
