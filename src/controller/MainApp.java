@@ -96,18 +96,21 @@ public class MainApp extends Application {
 
 	public void showHeaderPane() {
 		try{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/HeaderPane.fxml"));
-			AnchorPane headerPane = (AnchorPane) loader.load();
-			// Getting the BorderPane of the MainView
-			BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
+		    if(headerController == null){
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("../view/HeaderPane.fxml"));
+                AnchorPane headerPane = (AnchorPane) loader.load();
+                // Getting the BorderPane of the MainView
+                BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
 
-			//Adding pane to the center of the borderPane
-			mainBorderPane.setTop(headerPane);
+                //Adding pane to the center of the borderPane
+                mainBorderPane.setTop(headerPane);
 
-			//Allowing Controller to access the view
-			headerController = loader.getController();
-			headerController.setMainApp(this);
+                //Allowing Controller to access the view
+                headerController = loader.getController();
+                headerController.setMainApp(this);
+            }
+			headerController.initialize();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

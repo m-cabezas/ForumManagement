@@ -43,8 +43,14 @@ public class HeaderController {
 
 		if(mainApp != null && mainApp.getUser() != null){
 			User user = new User();
-			user = mainApp.getUser();
+			try {
+				user = (User) mainApp.getUser().clone();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+			System.out.println("clone");
 			updateUserList(user);
+			pickUser();
 		}else{
 			updateUserList(null);
 		}
@@ -53,6 +59,7 @@ public class HeaderController {
 	}
 
 	public void updateUserList(User prevUser){
+		System.out.println("update");
 		if(!userComboBox.getItems().isEmpty()){
 			userComboBox.getItems().clear();
 		}
@@ -105,9 +112,13 @@ public class HeaderController {
 	private void showTopics(){
 		if(mainApp.getUser() != null){
 			User user = new User();
-			user = mainApp.getUser();
+			try {
+				user = (User) mainApp.getUser().clone();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
 			updateUserList(user);
-
+			pickUser();
 		}
 
 

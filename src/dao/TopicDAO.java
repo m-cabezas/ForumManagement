@@ -26,9 +26,11 @@ public class TopicDAO implements DAO<Topic> {
 
             query = "";
             for (Integer adminId : topic.getAdministrators()) {
-                String querySelect = "SELECT id FROM " + tableName + " WHERE topic_name = '" + topic.getTopicName() + "'";
-                Statement stmtSelect = conn.createStatement();
-                ResultSet res = stmtSelect.executeQuery(querySelect);
+                String querySelect = "SELECT id FROM " + tableName + " WHERE topic_name = ?";
+
+                PreparedStatement stmtSelect = conn.prepareStatement(querySelect);
+                stmtSelect.setString(1, topic.getTopicName());
+                ResultSet res = stmtSelect.executeQuery();
 
                 query += " INSERT INTO Administrate (id_User, id_Topic) VALUES(?,?); ";
                 stmt = conn.prepareStatement(query);
@@ -90,7 +92,15 @@ public class TopicDAO implements DAO<Topic> {
                 int id = resultSet.getInt("id");
                 String topicName = resultSet.getString("topic_name");
                 String topicDescription = resultSet.getString("topic_description");
-                Topic topic = new Topic(id, topicName, topicDescription);
+                query = "SELECT id_User FROM Administrate WHERE id_Topic = ?";
+                PreparedStatement prepStmt = conn.prepareStatement(query);
+                prepStmt.setInt(1, id);
+                ResultSet userRes = prepStmt.executeQuery();
+                ArrayList<Integer> adminIds = new ArrayList<>();
+                while (userRes.next()){
+                    adminIds.add(userRes.getInt("id_user"));
+                }
+                Topic topic = new Topic(id, topicName, topicDescription, adminIds);
                 topics.add(topic);
             }
         } catch (SQLException e) {
@@ -109,7 +119,15 @@ public class TopicDAO implements DAO<Topic> {
             ResultSet resultSet = stmt.executeQuery(query);
             String topicName = resultSet.getString("topic_name");
             String topicDescription = resultSet.getString("topic_description");
-            topic = new Topic(id, topicName, topicDescription);
+            query = "SELECT id_User FROM Administrate WHERE id_Topic = ?";
+            PreparedStatement prepStmt = conn.prepareStatement(query);
+            prepStmt.setInt(1, id);
+            ResultSet userRes = prepStmt.executeQuery();
+            ArrayList<Integer> adminIds = new ArrayList<>();
+            while (userRes.next()){
+                adminIds.add(userRes.getInt("id_user"));
+            }
+            topic = new Topic(id, topicName, topicDescription, adminIds);
         } catch (SQLException e) {
             e.printStackTrace();
         }
