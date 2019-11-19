@@ -14,7 +14,7 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void insert(User user) {
-        String query = "INSERT INTO " + tableName + " (admin,age,biography,name,pseudo,surname) VALUES ('0','" + user.getAge() + "','" + user.getBiography() + "','" + user.getAge() + "','" + user.getPseudo() + "','" + user.getSurname() + "')";
+        String query = "INSERT INTO " + tableName + " (admin,age,biography,name,pseudo,surname) VALUES ("+ user.isAdmin() + ",'" + user.getAge() + "','" + user.getBiography() + "','" + user.getAge() + "','" + user.getPseudo() + "','" + user.getSurname() + "')";
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
@@ -36,6 +36,7 @@ public class UserDAO implements DAO<User> {
             statement.setString(6, user.getSurname());
 
             statement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -7,8 +7,10 @@ public class Topic {
 	private int id;
 	private String topicName;
 	private String topicDescription;
+	private ArrayList<Integer> administrators;
 
 	public Topic() {
+		administrators = new ArrayList<>();
 	}
 
 	public Topic(int id, String topicName, String topicDescription) {
@@ -39,5 +41,17 @@ public class Topic {
 
 	public void setTopicDescription(String topicDescription) {
 		this.topicDescription = topicDescription;
+	}
+
+	public void setAdministrators(ArrayList<Integer> administrators) {
+		this.administrators = administrators;
+	}
+
+	public void addAdministrator(Integer adminId){
+		administrators.add(adminId);
+	}
+
+	public ArrayList<Integer> getAdministrators() {
+		return administrators;
 	}
 }

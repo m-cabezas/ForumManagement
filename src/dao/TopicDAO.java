@@ -1,6 +1,9 @@
 package dao;
 
+import controller.AdminController;
+import model.Admin;
 import model.Topic;
+import model.User;
 
 import java.sql.*;
 import java.time.ZoneId;
@@ -13,10 +16,24 @@ public class TopicDAO implements DAO<Topic> {
 
     @Override
     public void insert(Topic topic) {
-        String query = "INSERT INTO " + tableName + " (topic_name,topic_description) VALUES ('" + topic.getTopicName() + "','" + topic.getTopicDescription() + "')";
+        String  formatName =  topic.getTopicName().replaceAll("'", "\\\\\'");
+        String formatDesc = topic.getTopicDescription().replaceAll("'", "\\\\\'");
+        String query = "INSERT INTO " + tableName + " (topic_name,topic_description) VALUES ('" + formatName + "','" + formatDesc + "')";
+        System.out.println(query);
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+
+            query = "";
+            for(Integer adminId : topic.getAdministrators()){
+                String querySelect = "SELECT id FROM " + tableName + " WHERE topic_name = " + topic.getTopicName();
+                Statement stmtSelect = conn.createStatement();
+                ResultSet res = stmtSelect.executeQuery(querySelect);
+
+                query += " INSERT INTO Administrate (id_User, id_Topic) VALUES("+ adminId +", "+ res.getInt(0)+"); ";
+            }
+
             stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
