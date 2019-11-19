@@ -1,12 +1,9 @@
 package dao;
 
-import controller.AdminController;
-import model.Admin;
+
 import model.Topic;
-import model.User;
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class TopicDAO implements DAO<Topic> {

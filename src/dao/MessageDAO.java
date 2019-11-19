@@ -12,11 +12,13 @@ public class MessageDAO implements DAO<Message> {
 
     @Override
     public void insert(Message message) {
-        String query = "INSERT INTO " + tableName + " (content,date_of_creation,id_Post,id_User) VALUES ('" + message.getContent() + "', date('now'),'" + message.getPostId() + "','" + message.getUserId() + "')";
-        Statement stmt = null;
+        String query = "INSERT INTO " + tableName + " (content,date_of_creation,id_Post,id_User) VALUES (?, date('now'),?,?)";
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(query);
+            PreparedStatement prepStmt = conn.prepareStatement(query);
+            prepStmt.setString(1, message.getContent());
+            prepStmt.setInt(2, message.getPostId());
+            prepStmt.setInt(3, message.getUserId());
+            prepStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
