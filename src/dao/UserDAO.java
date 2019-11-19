@@ -135,7 +135,15 @@ public class UserDAO implements DAO<User> {
             while (resultSet.next()) {
                 String topicName = resultSet.getString("topic_name");
                 String topicDescription = resultSet.getString("topic_description");
-                Topic topic = new Topic(id,topicName,topicDescription);
+                query = "SELECT id_User FROM Administrate WHERE id_Topic = ?";
+                PreparedStatement prepStmt = conn.prepareStatement(query);
+                prepStmt.setInt(1, id);
+                ResultSet userRes = prepStmt.executeQuery();
+                ArrayList<Integer> adminIds = new ArrayList<>();
+                while (userRes.next()){
+                    adminIds.add(userRes.getInt("id_user"));
+                }
+                Topic topic = new Topic(id,topicName,topicDescription, adminIds);
                 topics.add(topic);
             }
         } catch (SQLException e) {

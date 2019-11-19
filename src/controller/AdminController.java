@@ -103,6 +103,7 @@ public class AdminController {
 
 	@FXML
 	private void deleteTopicBtnHandler(Topic topic) {
+		System.out.println("delete");
 		topics.remove(topic);
 		topicDAO.delete(topic);
 		createTopicList();
