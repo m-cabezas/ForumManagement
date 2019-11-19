@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="140.0" maxWidth="900.0" onMouseClicked="#showMessage" prefHeight="130.0" prefWidth="900.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PostController">
+   <children>
+      <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="200.0" maxWidth="700.0" prefHeight="200.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <Text fx:id="descTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="description" BorderPane.alignment="CENTER_LEFT">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+            </Text>
+         </bottom>
+         <left>
+            <Text fx:id="nameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="post name" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+            </Text>
+         </left>
+         <right>
+            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="nbMsgTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="nb msg">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+         </right>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <top>
+            <BorderPane maxHeight="30.0" prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <right>
+                  <Text fx:id="lastUpdateTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="last update" BorderPane.alignment="CENTER" />
+               </right>
+               <left>
+                  <HBox>
+                     <children>
+                        <Text onMouseClicked="#showUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Author: " BorderPane.alignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Hyperlink fx:id="authorLink" onAction="#showUser" prefHeight="29.0" prefWidth="249.0" text="Hyperlink" />
+                     </children>
+                  </HBox>
+               </left>
+            </BorderPane>
+         </top>
+      </BorderPane>
+   </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</AnchorPane>
