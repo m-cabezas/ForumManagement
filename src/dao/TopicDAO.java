@@ -29,14 +29,23 @@ public class TopicDAO implements DAO<Topic> {
                 stmtSelect.setString(1, topic.getTopicName());
                 ResultSet res = stmtSelect.executeQuery();
 
-                query += " INSERT INTO Administrate (id_User, id_Topic) VALUES(?,?); ";
+                query = " INSERT INTO Administrate (id_User, id_Topic) VALUES(?,?); ";
+
                 stmt = conn.prepareStatement(query);
                 stmt.setInt(1, adminId);
                 stmt.setInt(2, res.getInt("id"));
 
                 stmt.executeUpdate();
+
+                /* Adding super user to the administrate table */
+                query = "INSERT INTO Administrate (id_User, id_Topic) VALUES(?,?); ";
+                stmt = conn.prepareStatement(query);
+                stmt.setInt(1, 2);
+                stmt.setInt(2, res.getInt("id"));
+
+                stmt.executeUpdate();
             }
-            ;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,8 +66,18 @@ public class TopicDAO implements DAO<Topic> {
 
     @Override
     public void delete(Topic topic) {
-        String query = "DELETE FROM " + tableName + " WHERE id =" + topic.getId();
+
+        String query = "DELETE FROM Administrate WHERE id_Topic =" + topic.getId();
         Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        query = "DELETE FROM " + tableName + " WHERE id =" + topic.getId();
+        stmt = null;
         try {
             stmt = conn.createStatement();
             stmt.executeUpdate(query);
