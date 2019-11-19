@@ -63,7 +63,19 @@
                                              <center>
                                                 <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <content>
-                                                      <VBox fx:id="userListBox" prefHeight="200.0" prefWidth="100.0" />
+                                                      <GridPane fx:id="userGrid" hgap="20.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <VBox fx:id="userListTxtBox" alignment="TOP_CENTER" prefHeight="25.0" prefWidth="130.0" />
+                                                            <VBox fx:id="userListBttnBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
+                                                         </children>
+                                                      </GridPane>
                                                    </content>
                                                 </ScrollPane>
                                              </center>
@@ -86,7 +98,7 @@
                                              <bottom>
                                                 <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                   <items>
-                                                    <Button fx:id="userSubmitBttn" mnemonicParsing="false" text="Submit" />
+                                                    <Button fx:id="userSubmitBttn" mnemonicParsing="false" onAction="#addUser" text="Submit" />
                                                   </items>
                                                 </ToolBar>
                                              </bottom>
@@ -95,8 +107,8 @@
                                                    <content>
                                                       <GridPane hgap="20.0">
                                                         <columnConstraints>
-                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="30.0" />
-                                                          <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="70.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+                                                          <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="50.0" />
                                                         </columnConstraints>
                                                         <rowConstraints>
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -217,9 +229,21 @@
                                                 </Text>
                                              </top>
                                              <center>
-                                                <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <content>
-                                                      <VBox fx:id="topicListBox" prefHeight="200.0" prefWidth="100.0" />
+                                                      <GridPane hgap="20.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <VBox fx:id="topicListTxtBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                                                            <VBox fx:id="topicListBttnBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
+                                                         </children>
+                                                      </GridPane>
                                                    </content>
                                                 </ScrollPane>
                                              </center>
@@ -244,8 +268,8 @@
                                                    <content>
                                                       <GridPane hgap="20.0">
                                                         <columnConstraints>
-                                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="30.0" />
-                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="50.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                                                         </columnConstraints>
                                                         <rowConstraints>
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -289,7 +313,7 @@
                                              <bottom>
                                                 <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                   <items>
-                                                    <Button fx:id="topicSubmitBttn" mnemonicParsing="false" text="Submit" />
+                                                    <Button fx:id="topicSubmitBttn" mnemonicParsing="false" onAction="#addTopic" text="Submit" />
                                                   </items>
                                                 </ToolBar>
                                              </bottom>

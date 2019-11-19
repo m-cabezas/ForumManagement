@@ -3,13 +3,16 @@ package controller;
 import dao.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import model.Admin;
 import model.Topic;
 import model.User;
 
@@ -33,11 +36,19 @@ public class AdminController {
 	@FXML
 	private TextField userBiographyTxtInpt;
 	@FXML
+	private TextField topicNameTxtInpt;
+	@FXML
+	private TextField topicDescriptionTxtInpt;
+	@FXML
 	private CheckBox userAdminChkbx;
 	@FXML
-	private VBox userListBox;
+	private VBox userListTxtBox;
 	@FXML
-	private VBox topicListBox;
+	private VBox topicListTxtBox;
+	@FXML
+	private VBox userListBttnBox;
+	@FXML
+	private VBox topicListBttnBox;
 
 	private User userAdmin;
 	private int userAdminId;
@@ -67,22 +78,26 @@ public class AdminController {
 
 	private void createUserList() {
 		users = userDAO.getAll();
-		if (!userListBox.getChildren().isEmpty()){
-			userListBox.getChildren().clear();
-		}
+		userListTxtBox.getChildren().clear();
+		userListBttnBox.getChildren().clear();
 		for(User user: users){
-			System.out.printf(user.getPseudo());
-			HBox hbox = new HBox();
-			hbox.getStyleClass().add("hbox");
-			hbox.setSpacing(5);
+			VBox vBoxTxt = new VBox();
+			VBox vBoxBttn = new VBox();
+			vBoxTxt.setAlignment(Pos.CENTER_RIGHT);
+			vBoxBttn.setAlignment(Pos.CENTER_LEFT);
 			Button deleteButton = new Button("x");
 			deleteButton.getStyleClass().add("bouton");
 			Text userPseudoTxt = new Text();
 			userPseudoTxt.setFill(Color.BLACK);
 			userPseudoTxt.setText(user.getPseudo());
 			deleteButton.addEventHandler(ActionEvent.ACTION, event -> deleteUserBtnHandler(user));
-			hbox.getChildren().addAll(userPseudoTxt, deleteButton);
-			userListBox.getChildren().add(hbox);
+
+			vBoxTxt.setMinHeight(30);
+			vBoxBttn.setMinHeight(30);
+			vBoxTxt.getChildren().addAll(userPseudoTxt);
+			vBoxBttn.getChildren().addAll(deleteButton);
+			userListTxtBox.getChildren().add(vBoxTxt);
+			userListBttnBox.getChildren().add(vBoxBttn);
 		}
 	}
 
@@ -94,19 +109,28 @@ public class AdminController {
 
 	private void createTopicList() {
 		topics = userDAO.getTopicByUserId(userAdminId);
-		topicListBox.getChildren().clear();
+		topicListTxtBox.getChildren().clear();
+		topicListBttnBox.getChildren().clear();
 		for(Topic topic: topics){
-			HBox hbox = new HBox();
-			hbox.getStyleClass().add("hbox");
-			hbox.setSpacing(5);
+			VBox vBoxTxt = new VBox();
+			VBox vBoxBttn = new VBox();
+			vBoxTxt.setAlignment(Pos.CENTER_RIGHT);
+			vBoxBttn.setAlignment(Pos.CENTER_LEFT);
+			vBoxTxt.setPrefWidth(100);
+			vBoxBttn.setPrefWidth(100);
 			Button deleteButton = new Button("x");
 			deleteButton.getStyleClass().add("bouton");
 			Text topicNameTxt = new Text();
 			topicNameTxt.setFill(Color.BLACK);
 			topicNameTxt.setText(topic.getTopicName());
 			deleteButton.addEventHandler(ActionEvent.ACTION, event -> deleteTopicBtnHandler(topic));
-			hbox.getChildren().addAll(topicNameTxt, deleteButton);
-			topicListBox.getChildren().add(hbox);
+
+			vBoxTxt.setMinHeight(30);
+			vBoxBttn.setMinHeight(30);
+			vBoxTxt.getChildren().addAll(topicNameTxt);
+			vBoxBttn.getChildren().addAll(deleteButton);
+			topicListTxtBox.getChildren().add(vBoxTxt);
+			topicListBttnBox.getChildren().add(vBoxBttn);
 		}
 	}
 
@@ -117,5 +141,42 @@ public class AdminController {
 			createUserList();
 			createTopicList();
 		}
+	}
+
+	@FXML
+	private void addUser(){
+		if(userInfoFilled()){
+			User user = new User();
+			user.setPseudo(userPseudoTxtInpt.getText());
+			user.setSurname(userSurnameTxtInpt.getText());
+			user.setName(userNameTxtInpt.getText());
+			user.setBiography(userBiographyTxtInpt.getText());
+			user.setAge(Integer.parseInt(userAgeTxtInpt.getText()));
+			user.setAdmin(userAdminChkbx.isSelected());
+			userDAO.insert(user);
+			initialize();
+		}
+	}
+
+	@FXML
+	private void addTopic(){ ;
+		if(!topicNameTxtInpt.getText().isBlank() && !topicDescriptionTxtInpt.getText().isBlank()){
+			Topic topic = new Topic();
+			topic.addAdministrator(mainApp.getUser().getId());
+			topic.setTopicDescription(topicDescriptionTxtInpt.getText());
+			topic.setTopicName(topicNameTxtInpt.getText());
+			topicDAO.insert(topic);
+			initialize();
+		}
+	}
+
+	private boolean userInfoFilled(){
+		boolean correctAge = false;
+		if(!userAgeTxtInpt.getText().isBlank()){
+			if(Integer.parseInt(userAgeTxtInpt.getText()) > 0 && Integer.parseInt(userAgeTxtInpt.getText()) < 120 ){
+				correctAge = true;
+			}
+		}
+		return  !userPseudoTxtInpt.getText().isBlank() && !userNameTxtInpt.getText().isBlank() && !userSurnameTxtInpt.getText().isBlank() && correctAge && !userBiographyTxtInpt.getText().isBlank();
 	}
 }

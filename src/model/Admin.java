@@ -4,36 +4,18 @@ import java.util.*;
 
 public class Admin extends User {
 
-	private ArrayList<Topic> topics;
+	private ArrayList<Integer> topics;
 
 	public Admin() {
 		super();
 	}
 
-	public void createUser() {
-		// TODO - implement Admin.createUser
-		throw new UnsupportedOperationException();
+	public void addTopic(Integer topicId){
+		topics.add(topicId);
 	}
 
-	public ArrayList<User> getUsers() {
-		// TODO - implement Admin.getUsers
-		throw new UnsupportedOperationException();
-	}
-
-	public void modifyUser(User user) {
-		// TODO - implement Admin.modifyUser
-		throw new UnsupportedOperationException();
-	}
-
-	public void addTopic(Topic topic){
-		topics.add(topic);
-	}
-
-	public ArrayList<Topic> getTopics() {
+	public ArrayList<Integer> getTopics() {
 		return topics;
 	}
 
-	public void removeTopic(Topic topic){
-
-	}
 }
