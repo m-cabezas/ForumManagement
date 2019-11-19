@@ -86,4 +86,17 @@ public class User {
 		User tmp = (User) obj;
 		return tmp.getId() == this.getId();
 	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		User clone = new User();
+		clone.setId(this.getId());
+		clone.setPseudo(this.getPseudo());
+		clone.setSurname(this.getSurname());
+		clone.setName(this.getName());
+		clone.setAge(this.getAge());
+		clone.setBiography(this.getBiography());
+		clone.setAdmin(this.isAdmin());
+		return super.clone();
+	}
 }

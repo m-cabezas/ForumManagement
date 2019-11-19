@@ -101,6 +101,7 @@ public class AdminController {
 		}
 	}
 
+	@FXML
 	private void deleteTopicBtnHandler(Topic topic) {
 		topics.remove(topic);
 		topicDAO.delete(topic);
@@ -167,6 +168,7 @@ public class AdminController {
 			topic.setTopicName(topicNameTxtInpt.getText());
 			topicDAO.insert(topic);
 			initialize();
+			mainApp.showHeaderPane();
 		}
 	}
 
