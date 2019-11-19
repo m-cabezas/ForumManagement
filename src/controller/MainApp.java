@@ -6,12 +6,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.HistoryEntry;
 import model.Post;
 import model.Topic;
 import model.User;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainApp extends Application {
 
@@ -25,7 +28,7 @@ public class MainApp extends Application {
 	private UserController userController;
 	private TopicListController topicListController;
 	private AdminController adminController;
-
+	private ArrayList<HistoryEntry> history = new ArrayList<HistoryEntry>();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
@@ -69,6 +72,7 @@ public class MainApp extends Application {
 	}
 
 	public void showPostListPane(Topic topic) {
+		setToHistory("showPostListPane",topic);
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/PostListPane.fxml"));
@@ -110,6 +114,7 @@ public class MainApp extends Application {
 	}
 
 	public void showTopicListPane() {
+		setToHistory("showTopicListPane",null);
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/TopicListPane.fxml"));
@@ -131,6 +136,7 @@ public class MainApp extends Application {
 	}
 
 	public void showAdminPane(int userId) {
+		setToHistory("showAdminPane",userId);
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/AdminPane.fxml"));
@@ -153,6 +159,7 @@ public class MainApp extends Application {
 	}
 
 	public void showMessageListPane(Post post) {
+		setToHistory("showMessageListPane",post);
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/MessageListPane.fxml"));
@@ -175,6 +182,7 @@ public class MainApp extends Application {
 	}
 
 	public void showUserPane(int userId) {
+		setToHistory("showUserPane",userId);
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/UserPane.fxml"));
@@ -193,6 +201,49 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setToHistory(String methodStr,Object methodParameter) {
+		HistoryEntry historyEntry = new HistoryEntry(methodStr,methodParameter);
+		history.add(historyEntry);
+	}
+
+	public ArrayList<HistoryEntry> getHistory() {
+		return history;
+	}
+
+	public HistoryEntry getLastPane() {
+		return history.get(history.size()-1);
+	}
+
+	public HistoryEntry getSecondToLastPane() {
+		return history.get(history.size()-2);
+	}
+
+	public void refresh() {
+		HistoryEntry historyEntry = getLastPane();
+		String methodStr = historyEntry.getMethodStr();
+		Object methodParameter = historyEntry.getMethodParameter();
+		switch (methodStr) {
+			case "showPostListPane":
+				showPostListPane((Topic) methodParameter);
+				break;
+			case "showTopicListPane":
+				showTopicListPane();
+				break;
+			case "showAdminPane":
+				showAdminPane((int) methodParameter);
+				break;
+			case "showMessageListPane":
+				showMessageListPane((Post) methodParameter);
+				break;
+			case "showUserPane":
+				showUserPane((int) methodParameter);
+				break;
+			default:
+				System.err.println("No case for last Pane");
+		}
+
 	}
 
 	public static void main(String[] args) {
