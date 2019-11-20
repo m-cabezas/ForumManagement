@@ -96,7 +96,7 @@ public class AdminController {
 		userListTxtBox.getChildren().clear();
 		userListBttnBox.getChildren().clear();
 		for(User user: users){
-			if(user.getId() != 1){
+			if(user.getId() != 1 && user.getId() != 2){
 				VBox vBoxTxt = new VBox();
 				VBox vBoxBttn = new VBox();
 				vBoxTxt.setAlignment(Pos.CENTER_RIGHT);
