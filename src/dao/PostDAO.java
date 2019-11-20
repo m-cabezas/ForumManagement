@@ -43,8 +43,16 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void delete(Post post) {
-        String query = "DELETE FROM " + tableName + " WHERE id =" + post.getId();
+        String query = "DELETE FROM Message WHERE id_Post =" + post.getId();
         Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        query = "DELETE FROM " + tableName + " WHERE id =" + post.getId();
+        stmt = null;
         try {
             stmt = conn.createStatement();
             stmt.executeUpdate(query);

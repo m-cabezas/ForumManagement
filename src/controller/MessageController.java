@@ -88,7 +88,9 @@ public class MessageController {
     @FXML
     private void deleteMessage() {
         MessageDAO messageDAO = new MessageDAO();
-        messageDAO.delete(message);
+//        messageDAO.delete(message);
+        message.setContent("MESSAGE REMOVED");
+        messageDAO.update(message);
         mainApp.showMessageListPane(post,topicAdministrators);
     }
 }

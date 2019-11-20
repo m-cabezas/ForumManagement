@@ -29,7 +29,7 @@ public class MessageDAO implements DAO<Message> {
         try {
             PreparedStatement statement = conn.prepareStatement("UPDATE Message SET content = ?, date_of_creation = ?, id_Post = ?, id_User = ? WHERE id = "+message.getId());
             statement.setString(1,message.getContent());
-            statement.setDate(2, java.sql.Date.valueOf(message.getDateOfCreation()));
+            statement.setString(2, message.getDateOfCreation());
             statement.setInt(3,message.getPostId());
             statement.setInt(4, message.getUserId());
 

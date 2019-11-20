@@ -17,10 +17,10 @@ public class HeaderController {
     private Text currentUserTxt;
     @FXML
     private Button adminAreaBtn;
-    @FXML
-    private Button previousBttn;
-    @FXML
-    private Button nextBttn;
+//    @FXML
+//    private Button previousBttn;
+//    @FXML
+//    private Button nextBttn;
 
     private UserDAO userDAO;
     private MainApp mainApp;
@@ -38,9 +38,23 @@ public class HeaderController {
     @FXML
     public void initialize() {
         adminAreaBtn.setVisible(false);
-        if (mainApp != null) {
-            updateDirectiveButtons();
-        }
+//        if (mainApp != null) {
+//            if (mainApp.getPositionIndex() != 0) {
+//                previousBttn.setVisible(true);
+//            } else {
+//                previousBttn.setVisible(false);
+//            }
+//
+//            if (mainApp.getHistory().size() == 0) {
+//                nextBttn.setVisible(false);
+//            } else {
+//                if (mainApp.getPositionIndex() != mainApp.getHistory().size() - 1) {
+//                    nextBttn.setVisible(true);
+//                } else {
+//                    nextBttn.setVisible(false);
+//                }
+//            }
+//        }
 
         if (mainApp == null || mainApp.getUser() == null) {
             currentUserTxt.setVisible(false);
@@ -88,29 +102,50 @@ public class HeaderController {
 
         if (index != -1) {
             userComboBox.getSelectionModel().select(index);
-        }else{
+        } else {
             userComboBox.getSelectionModel().select(0);
         }
 
     }
 
-    public void updateDirectiveButtons() {
-        if (mainApp.getPositionIndex() != 0) {
-            previousBttn.setVisible(true);
-        } else {
-            previousBttn.setVisible(false);
-        }
-
-        if (mainApp.getHistory().size() == 0) {
-            nextBttn.setVisible(false);
-        } else {
-            if (mainApp.getPositionIndex() != mainApp.getHistory().size() - 1) {
-                nextBttn.setVisible(true);
-            } else {
-                nextBttn.setVisible(false);
-            }
-        }
+    @FXML
+    private void redirectPrevious() {
+//        mainApp.setPositionIndex(mainApp.getPositionIndex() - 1);
+//        System.out.println("valeur décrémenté : " + mainApp.getPositionIndex());
+//        mainApp.redirect(mainApp.getHistory().get(mainApp.getPositionIndex()));
     }
+
+    @FXML
+    private void redirectNext() {
+//        mainApp.setPositionIndex(mainApp.getPositionIndex() + 1);
+//        System.out.println("valeur incrémenté : " + mainApp.getPositionIndex());
+//        mainApp.redirect(mainApp.getHistory().get(mainApp.getPositionIndex()));
+    }
+
+//    public void updateDirectiveButtons() {
+//        System.out.println("verified LastPane : " + mainApp.getLastPane().getMethodStr());
+//
+//        System.out.println("position " + mainApp.getPositionIndex());
+//        System.out.println(mainApp.getPositionIndex() >= 0);
+//
+//        System.out.println("pane + " + mainApp.getHistory().get(mainApp.getPositionIndex()).getMethodStr());
+//        System.out.println(!mainApp.getHistory().get(mainApp.getPositionIndex()).getMethodStr().equals("showMessageListPane"));
+//
+//        System.out.println("taille tab " + mainApp.getHistory().size());
+//        System.out.println(mainApp.getHistory().size() >= 3);
+//
+//        if ((mainApp.getPositionIndex() > 0) && !mainApp.getHistory().get(mainApp.getPositionIndex()).getMethodStr().equals("showTopicListPane")) {
+//            previousBttn.setVisible(true);
+//        } else {
+//            previousBttn.setVisible(false);
+//        }
+//
+//        if ((mainApp.getPositionIndex() >= 0) && !mainApp.getHistory().get(mainApp.getPositionIndex()).getMethodStr().equals("showMessageListPane") && (mainApp.getHistory().size() >= 3)) {
+//            nextBttn.setVisible(true);
+//        } else {
+//            nextBttn.setVisible(false);
+//        }
+//    }
 
     @FXML
     private void pickUser() {
@@ -135,7 +170,7 @@ public class HeaderController {
 
         mainApp.setUser(currentUser);
         /* if we are in the admin pane, we request the main app to show the topics */
-        if(mainApp.getUser() != null){
+        if (mainApp.getUser() != null) {
             if (!mainApp.getUser().isAdmin() && mainApp.getLastPane().getMethodStr().equals("showAdminPane")) {
                 mainApp.showTopicListPane();
             } else if (mainApp.getUser().isAdmin() && mainApp.getLastPane().getMethodStr().equals("showAdminPane")) {
@@ -163,26 +198,6 @@ public class HeaderController {
 
 
         mainApp.showTopicListPane();
-    }
-
-    @FXML
-    private void redirectPrevious() {
-        if (mainApp.getPositionIndex() >= 0 && !mainApp.getLastPane().getMethodStr().equals("showTopicListPane")) {
-            mainApp.redirect(mainApp.getHistory().get(mainApp.getPositionIndex() - 1));
-            int positionIndex = mainApp.getPositionIndex() - 1;
-			System.out.println(positionIndex);
-            mainApp.setPositionIndex(positionIndex);
-        }
-    }
-
-    @FXML
-    private void redirectNext() {
-        if (mainApp.getPositionIndex() >= 0 && !mainApp.getLastPane().getMethodStr().equals("showMessageListPane")) {
-            mainApp.redirect(mainApp.getHistory().get(mainApp.getPositionIndex() + 1));
-			int positionIndex = mainApp.getPositionIndex() + 1;
-			System.out.println(positionIndex);
-			mainApp.setPositionIndex(positionIndex);
-        }
     }
 
     @FXML
