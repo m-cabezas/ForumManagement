@@ -261,7 +261,7 @@ public class MainApp extends Application {
 //        System.out.println("index historique af seth " + index2);
     }
 	public void showEditPane(int userId) {
-		setToHistory("showEditPane",userId);
+		setToHistory("showEditPane",userId, null);
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/EditUserPane.fxml"));
@@ -280,11 +280,6 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void setToHistory(String methodStr,Object methodParameter) {
-		HistoryEntry historyEntry = new HistoryEntry(methodStr,methodParameter);
-		history.add(historyEntry);
 	}
 
     public ArrayList<HistoryEntry> getHistory() {

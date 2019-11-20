@@ -56,11 +56,16 @@
             </TextArea>
          </center>
          <bottom>
-            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveUser" text="Save" BorderPane.alignment="CENTER_RIGHT">
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin>
-            </Button>
+            <ToolBar nodeOrientation="RIGHT_TO_LEFT">
+               <items>
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveUser" text="Save" BorderPane.alignment="CENTER_RIGHT">
+                     <BorderPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </BorderPane.margin>
+                  </Button>
+                  <Text fx:id="errorTxt" fill="#b90e0e" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR" />
+               </items>
+            </ToolBar>
          </bottom>
         </BorderPane>
     </children>

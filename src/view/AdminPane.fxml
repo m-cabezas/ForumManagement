@@ -90,6 +90,7 @@
                                                   <items>
                                                     <Button fx:id="userSubmitBttn" mnemonicParsing="false" text="Submit" />
                                                       <Button fx:id="switchBtn" mnemonicParsing="false" text="Switch to add mode" />
+                                                      <Text fx:id="userErrorTxt" fill="#b50303" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR" />
                                                   </items>
                                                 </ToolBar>
                                              </bottom>
@@ -313,6 +314,7 @@
                                                   <items>
                                                     <Button fx:id="topicSubmitBttn" mnemonicParsing="false" text="Submit" />
                                                       <Button fx:id="switchTopicModeBtn" mnemonicParsing="false" text="Switch to add mode" />
+                                                      <Text fx:id="topicErrorTxt" fill="#b50303" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR" />
                                                   </items>
                                                 </ToolBar>
                                              </bottom>

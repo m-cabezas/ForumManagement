@@ -38,10 +38,13 @@ public class TopicDAO implements DAO<Topic> {
                 stmt.executeUpdate();
 
                 /* Adding super user to the administrate table */
-                query = "INSERT INTO Administrate (id_User, id_Topic) VALUES(?,?); ";
-                stmt = conn.prepareStatement(query);
-                stmt.setInt(1, 2);
-                stmt.setInt(2, res.getInt("id"));
+                if(adminId != 2){
+                    query = "INSERT INTO Administrate (id_User, id_Topic) VALUES(?,?); ";
+                    stmt = conn.prepareStatement(query);
+                    stmt.setInt(1, 2);
+                    stmt.setInt(2, res.getInt("id"));
+                }
+
 
                 stmt.executeUpdate();
             }

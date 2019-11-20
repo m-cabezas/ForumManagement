@@ -29,6 +29,8 @@ public class MessageListController {
     private Text postNameTxt;
     @FXML
     private Text postDescriptionTxt;
+    @FXML
+    private Text errorTxt;
 
     private MessageDAO messageDAO;
     private PostDAO postDAO;
@@ -59,6 +61,7 @@ public class MessageListController {
 
     @FXML
     public void initialize() {
+        errorTxt.setVisible(false);
         enableUserRights(false);
         if (mainApp != null) {
             if (mainApp.getUser() != null) {
@@ -110,7 +113,11 @@ public class MessageListController {
             Date date = new Date();
             post.setLastUpdate(new SimpleDateFormat("yyyy-MM-dd").format(date));
             postDAO.update(post);
+            errorTxt.setVisible(false);
             initialize();
+        }else{
+            errorTxt.setText("ERROR: Empty Fields");
+            errorTxt.setVisible(true);
         }
     }
 
@@ -118,8 +125,10 @@ public class MessageListController {
     public void enableUserRights(boolean bool) {
         if (bool) {
             postBtn.setDisable(false);
+            msgArea.setDisable(false);
         } else {
             postBtn.setDisable(true);
+            msgArea.setDisable(true);
         }
     }
 }

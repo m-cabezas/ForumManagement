@@ -60,12 +60,15 @@ public class AdminController {
 	private Button switchTopicModeBtn;
 	@FXML
 	private Text modeTopicTxt;
+	@FXML
+	private Text userErrorTxt;
+	@FXML
+	private Text topicErrorTxt;
 
 	private User userAdmin;
 	private int userAdminId;
 	private ArrayList<User> users;
 	private ArrayList<Topic> topics;
-	private int mode = 1;
 
 	public AdminController() {
 		userDAO = new UserDAO();
@@ -153,6 +156,8 @@ public class AdminController {
 
 	@FXML
 	public void initialize(){
+		topicErrorTxt.setVisible(false);
+		userErrorTxt.setVisible(false);
 		switchUserMode();
 		switchBtn.setOnMouseClicked(mouseEvent -> switchUserMode());
 		switchTopicMode();
@@ -200,18 +205,32 @@ public class AdminController {
 			switchBtn.setVisible(false);
 			createUserList();
 			switchUserMode();
+			userErrorTxt.setVisible(false);
+		}else{
+
 		}
 	}
 
 
 	private boolean checkUserInfo(){
 		boolean correctAge = false;
+		boolean bool = false;
 		if(!userAgeTxtInpt.getText().isBlank()){
 			if(Integer.parseInt(userAgeTxtInpt.getText()) > 0 && Integer.parseInt(userAgeTxtInpt.getText()) < 120 ){
 				correctAge = true;
+			}else{
+				userErrorTxt.setText("ERROR: Unvalid Age");
+				userErrorTxt.setVisible(true);
 			}
 		}
-		return  !userPseudoTxtInpt.getText().isBlank() && !userNameTxtInpt.getText().isBlank() && !userSurnameTxtInpt.getText().isBlank() && correctAge && !userBiographyTxtInpt.getText().isBlank();
+		if(correctAge){
+			bool = !userPseudoTxtInpt.getText().isBlank() && !userNameTxtInpt.getText().isBlank() && !userSurnameTxtInpt.getText().isBlank() && correctAge && !userBiographyTxtInpt.getText().isBlank();
+			if(!bool){
+				userErrorTxt.setText("ERROR: Empty Fields");
+				userErrorTxt.setVisible(true);
+			}
+		}
+		return  bool;
 	}
 
 	private void fillUserInfo(User user){
@@ -256,7 +275,12 @@ public class AdminController {
 			mainApp.showHeaderPane();
 			clearTopicFields();
 			createTopicList();
+			topicErrorTxt.setVisible(false);
+		}else{
+			topicErrorTxt.setText("ERROR: Empty Fields");
+			topicErrorTxt.setVisible(true);
 		}
+
 	}
 
 	private void updateTopic(int topicId){
@@ -270,6 +294,10 @@ public class AdminController {
 			clearTopicFields();
 			switchTopicMode();
 			createTopicList();
+			topicErrorTxt.setVisible(false);
+		}else{
+			topicErrorTxt.setText("ERROR: Empty Fields");
+			topicErrorTxt.setVisible(true);
 		}
 	}
 

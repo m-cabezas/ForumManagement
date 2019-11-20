@@ -20,6 +20,8 @@ public class EditUserController {
     private TextArea bioArea;
     @FXML
     private Text adminTxt;
+    @FXML
+    private Text errorTxt;
 
     private UserDAO userDAO;
     private MainApp mainApp;
@@ -39,6 +41,7 @@ public class EditUserController {
 
     @FXML
     public void initialize(){
+        errorTxt.setVisible(false);
         if(userId != 0){
             User user = userDAO.selectById(userId);
             fillUserInfo(user);
@@ -71,17 +74,34 @@ public class EditUserController {
             modifiedUSer.setBiography(bioArea.getText());
             userDAO.update(modifiedUSer);
             mainApp.showUserPane(userId);
+            errorTxt.setVisible(false);
         }
     }
 
     private boolean checkUserInfo(){
         boolean correctAge = false;
+        boolean correct = false;
         if(!ageField.getText().isBlank()){
-            if(Integer.parseInt(ageField.getText()) > 0 && Integer.parseInt(ageField.getText()) < 120 ){
-                correctAge = true;
+            try{
+                if(Integer.parseInt(ageField.getText()) > 0 && Integer.parseInt(ageField.getText()) < 120 ){
+                    correctAge = true;
+                }else{
+                    errorTxt.setText("ERROR: Unvalid Age");
+                    errorTxt.setVisible(true);
+                }
+            }catch (NumberFormatException e){
+                errorTxt.setText("ERROR: Unvalid Age");
+                errorTxt.setVisible(true);
             }
         }
-        return  !pseudoField.getText().isBlank() && !nameField.getText().isBlank() && !surnameField.getText().isBlank() && correctAge && !bioArea.getText().isBlank();
+        if(correctAge){
+            correct =  !pseudoField.getText().isBlank() && !nameField.getText().isBlank() && !surnameField.getText().isBlank() && correctAge && !bioArea.getText().isBlank();
+            if(!correct){
+                errorTxt.setText("ERROR: Empty Fields");
+                errorTxt.setVisible(true);
+            }
+        }
+        return correct;
     }
 
 

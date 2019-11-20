@@ -28,6 +28,8 @@ public class PostListController {
 	private Text topicDescriptionTxt;
 	@FXML
 	private Button postBtn;
+	@FXML
+	private Text errorTxt;
 
 
 	private MainApp mainApp;
@@ -53,6 +55,7 @@ public class PostListController {
 
 	@FXML
 	public void initialize(){
+		errorTxt.setVisible(false);
 		enableUserRights(false);
 		if(mainApp != null){
 			if(mainApp.getUser() != null){
@@ -101,14 +104,22 @@ public class PostListController {
 			post.setUserId(mainApp.getUser().getId());
 			postDAO.insert(post);
 			initialize();
+			errorTxt.setVisible(false);
+		}else{
+			errorTxt.setText("ERROR: Empty Fields");
+			errorTxt.setVisible(true);
 		}
 	}
 
 	public void enableUserRights(boolean bool){
 		if(bool){
 			postBtn.setDisable(false);
+			descField.setDisable(false);
+			nameField.setDisable(false);
 		}else{
 			postBtn.setDisable(true);
+			descField.setDisable(true);
+			nameField.setDisable(true);
 		}
 	}
 

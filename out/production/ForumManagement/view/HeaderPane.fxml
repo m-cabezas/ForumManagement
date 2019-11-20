@@ -50,12 +50,12 @@
                   </BorderPane>
                   <HBox>
                      <children>
-                        <Button fx:id="previousBttn" mnemonicParsing="false" onAction="#redirectPrevious" text="&lt; Previous">
+                        <Button fx:id="previousBttn" mnemonicParsing="false" onAction="#redirectPrevious" text="&lt; Previous" visible="false">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="nextBttn" mnemonicParsing="false" onAction="#redirectNext" text="Next &gt;" />
+                        <Button fx:id="nextBttn" mnemonicParsing="false" onAction="#redirectNext" text="Next &gt;" visible="false" />
                      </children>
                   </HBox>
                </children>
