@@ -28,6 +28,7 @@ public class MainApp extends Application {
 	private UserController userController;
 	private TopicListController topicListController;
 	private AdminController adminController;
+	private EditUserController editUserController;
 	private ArrayList<HistoryEntry> history = new ArrayList<HistoryEntry>();
 
 	@Override
@@ -206,6 +207,28 @@ public class MainApp extends Application {
 		}
 	}
 
+	public void showEditPane(int userId) {
+		setToHistory("showEditPane",userId);
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/EditUserPane.fxml"));
+			AnchorPane userPane = (AnchorPane) loader.load();
+			// Getting the BorderPane of the MainView
+			BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
+
+			//Adding pane to the center of the borderPane
+			mainBorderPane.setCenter(userPane);
+
+			//Allowing Controller to access the view
+			editUserController = loader.getController();
+			editUserController.setUserId(userId);
+			editUserController.setMainApp(this);
+			editUserController.initialize();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void setToHistory(String methodStr,Object methodParameter) {
 		HistoryEntry historyEntry = new HistoryEntry(methodStr,methodParameter);
 		history.add(historyEntry);
@@ -242,6 +265,9 @@ public class MainApp extends Application {
 				break;
 			case "showUserPane":
 				showUserPane((int) methodParameter);
+				break;
+			case "showEditPane":
+				showEditPane((int) methodParameter);
 				break;
 			default:
 				System.err.println("No case for last Pane");

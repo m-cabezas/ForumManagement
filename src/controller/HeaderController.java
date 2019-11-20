@@ -96,6 +96,7 @@ public class HeaderController {
             String parts[] = userComboBox.getSelectionModel().getSelectedItem().split("-", 2);
             currentUser = userDAO.selectById(Integer.valueOf(parts[0].trim()));
             currentUserTxt.setText(currentUser.getPseudo());
+            currentUserTxt.setOnMouseClicked(mouseEvent -> mainApp.showUserPane(currentUser.getId()));
             currentUserTxt.setVisible(true);
             if (currentUser.isAdmin()) {
                 adminAreaBtn.setVisible(true);
@@ -116,6 +117,11 @@ public class HeaderController {
             } else if (mainApp.getUser().isAdmin() && mainApp.getLastPane().getMethodStr().equals("showAdminPane")) {
                 mainApp.showAdminPane(mainApp.getUser().getId());
             }
+
+        }
+        /* If we are changing th user whereas we were editung a user, we request the main app to show the topics */
+        if(mainApp.getLastPane().getMethodStr().equals("showEditPane")){
+            mainApp.showTopicListPane();
         }
 
         mainApp.refresh();

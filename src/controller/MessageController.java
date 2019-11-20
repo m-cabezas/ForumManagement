@@ -47,9 +47,12 @@ public class MessageController {
             dateTxt.setText("Date of creation: " + message.getDateOfCreation());
             contentTxt.setText(message.getContent());
             deleteMesageBttn.setVisible(false);
-            if (message.getUserId() == mainApp.getUser().getId()) {
-                deleteMesageBttn.setVisible(true);
+            if(mainApp.getUser() != null){
+                if (message.getUserId() == mainApp.getUser().getId()) {
+                    deleteMesageBttn.setVisible(true);
+                }
             }
+
             if(user.isAdmin()){
                 adminTxt.setVisible(true);
             }else {

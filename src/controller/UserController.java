@@ -2,6 +2,7 @@ package controller;
 
 import dao.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import model.User;
 
@@ -19,6 +20,8 @@ public class UserController {
 	private Text biographyTxt;
 	@FXML
 	private Text adminTxt;
+	@FXML
+	private Button editBtn;
 
 	private UserDAO userDAO;
 	private MainApp mainApp;
@@ -55,6 +58,15 @@ public class UserController {
 			}else{
 				adminTxt.setVisible(false);
 			}
+			editBtn.setVisible(false);
+			if(mainApp.getUser() != null && userId == mainApp.getUser().getId()){
+				editBtn.setVisible(true);
+			}
 		}
+	}
+
+	@FXML
+	private void editUser(){
+		mainApp.showEditPane(userId);
 	}
 }
