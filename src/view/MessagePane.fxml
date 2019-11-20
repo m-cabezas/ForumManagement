@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -37,7 +38,16 @@
                         </HBox>
                      </left>
                      <right>
-                        <Button fx:id="deleteMesageBttn" mnemonicParsing="false" text="Delete message" BorderPane.alignment="CENTER" />
+                        <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text fx:id="managementInfoTxt" fill="#ae0303" strokeType="OUTSIDE" strokeWidth="0.0" text="You manage this topic">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Button fx:id="deleteMesageBttn" mnemonicParsing="false" onAction="#deleteMessage" text="Delete message" />
+                           </children>
+                        </HBox>
                      </right>
                   </BorderPane>
                </top>
